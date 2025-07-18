@@ -1,15 +1,17 @@
 import { useState } from 'react';
-import { Shield, AlertTriangle, Brain } from 'lucide-react';
+import { Shield, AlertTriangle, Brain, Mail, HelpCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import SMSSimulation from '@/components/SMSSimulation';
+import EmailSimulation from '@/components/EmailSimulation';
 import PhishingPage from '@/components/PhishingPage';
 import EducationalWarning from '@/components/EducationalWarning';
 import DebitSimulation from '@/components/DebitSimulation';
+import QuizSimulation from '@/components/QuizSimulation';
 import SecurityTips from '@/components/SecurityTips';
 
-type Step = 'intro' | 'sms' | 'phishing' | 'warning' | 'debit' | 'tips';
+type Step = 'intro' | 'sms' | 'email' | 'phishing' | 'warning' | 'debit' | 'quiz' | 'tips';
 
 const Index = () => {
   const [currentStep, setCurrentStep] = useState<Step>('intro');
@@ -92,14 +94,33 @@ const Index = () => {
             </CardContent>
           </Card>
 
-          <div className="text-center mt-8">
-            <Button 
-              onClick={() => setCurrentStep('sms')} 
-              size="lg"
-              className="bg-gradient-to-r from-primary to-primary-glow"
-            >
-              Start Security Simulation
-            </Button>
+          <div className="text-center mt-8 space-y-4">
+            <p className="text-lg font-semibold text-primary mb-4">Choose Your Simulation Path:</p>
+            <div className="flex flex-wrap justify-center gap-4">
+              <Button 
+                onClick={() => setCurrentStep('sms')} 
+                size="lg"
+                className="bg-gradient-to-r from-primary to-primary-glow min-w-48"
+              >
+                📱 SMS Phishing Demo
+              </Button>
+              <Button 
+                onClick={() => setCurrentStep('email')} 
+                size="lg"
+                variant="outline"
+                className="min-w-48"
+              >
+                📧 Email Phishing Demo
+              </Button>
+              <Button 
+                onClick={() => setCurrentStep('quiz')} 
+                size="lg"
+                variant="secondary"
+                className="min-w-48"
+              >
+                🧠 Security Quiz
+              </Button>
+            </div>
           </div>
         </div>
       </div>
@@ -108,6 +129,10 @@ const Index = () => {
 
   if (currentStep === 'sms') {
     return <SMSSimulation onNext={() => setCurrentStep('phishing')} />;
+  }
+
+  if (currentStep === 'email') {
+    return <EmailSimulation onNext={() => setCurrentStep('phishing')} />;
   }
 
   if (currentStep === 'phishing') {
@@ -127,6 +152,10 @@ const Index = () => {
 
   if (currentStep === 'debit') {
     return <DebitSimulation onNext={() => setCurrentStep('tips')} />;
+  }
+
+  if (currentStep === 'quiz') {
+    return <QuizSimulation onComplete={() => setCurrentStep('tips')} />;
   }
 
   if (currentStep === 'tips') {
