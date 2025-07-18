@@ -57,22 +57,25 @@ const Index = () => {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-6 mb-8">
-            <Card className="border-primary/20 hover-scale transition-all duration-300 animate-fade-in">
-              <CardHeader>
-                <AlertTriangle className="h-8 w-8 text-warning mb-2 transition-transform duration-300 hover:rotate-12" />
-                <CardTitle>Recognize Threats</CardTitle>
+          {/* Feature Card - Recognize Threats at top */}
+          <div className="mb-8">
+            <Card className="border-warning/30 bg-gradient-to-br from-warning/5 to-warning/10 hover:shadow-xl hover:shadow-warning/20 transition-all duration-500 hover:scale-[1.02] animate-fade-in">
+              <CardHeader className="text-center">
+                <AlertTriangle className="h-12 w-12 text-warning mb-4 mx-auto transition-transform duration-500 hover:rotate-12 hover:scale-110" />
+                <CardTitle className="text-2xl">🚨 Recognize Threats</CardTitle>
               </CardHeader>
-              <CardContent>
-                <CardDescription>
-                  Learn to identify suspicious messages, emails, and websites that could be phishing attempts.
+              <CardContent className="text-center">
+                <CardDescription className="text-lg">
+                  Learn to identify suspicious messages, emails, and websites that could be phishing attempts. This is your first line of defense!
                 </CardDescription>
               </CardContent>
             </Card>
+          </div>
 
-            <Card className="border-primary/20 hover-scale transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.1s' }}>
+          <div className="grid md:grid-cols-2 gap-6 mb-8">
+            <Card className="border-primary/20 hover:shadow-xl hover:shadow-primary/20 transition-all duration-500 hover:scale-[1.02] animate-fade-in" style={{ animationDelay: '0.2s' }}>
               <CardHeader>
-                <Brain className="h-8 w-8 text-secondary mb-2 transition-transform duration-300 hover:rotate-12" />
+                <Brain className="h-8 w-8 text-secondary mb-2 transition-transform duration-500 hover:rotate-12 hover:scale-110" />
                 <CardTitle>Experience Safely</CardTitle>
               </CardHeader>
               <CardContent>
@@ -82,9 +85,9 @@ const Index = () => {
               </CardContent>
             </Card>
 
-            <Card className="border-primary/20 hover-scale transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.2s' }}>
+            <Card className="border-primary/20 hover:shadow-xl hover:shadow-primary/20 transition-all duration-500 hover:scale-[1.02] animate-fade-in" style={{ animationDelay: '0.4s' }}>
               <CardHeader>
-                <Shield className="h-8 w-8 text-primary mb-2 transition-transform duration-300 hover:rotate-12" />
+                <Shield className="h-8 w-8 text-primary mb-2 transition-transform duration-500 hover:rotate-12 hover:scale-110" />
                 <CardTitle>Stay Protected</CardTitle>
               </CardHeader>
               <CardContent>
@@ -95,52 +98,77 @@ const Index = () => {
             </Card>
           </div>
 
-          <Card className="bg-warning/10 border-warning/30 hover-scale transition-all duration-300 animate-fade-in" style={{ animationDelay: '0.3s' }}>
+          <Card className="bg-warning/10 border-warning/30 hover:shadow-xl hover:shadow-warning/20 transition-all duration-500 hover:scale-[1.01] animate-fade-in" style={{ animationDelay: '0.6s' }}>
             <CardHeader>
               <CardTitle className="flex items-center">
-                <AlertTriangle className="h-5 w-5 text-warning mr-2 transition-transform duration-300 hover:rotate-12" />
+                <AlertTriangle className="h-5 w-5 text-warning mr-2 transition-transform duration-500 hover:rotate-12 hover:scale-110" />
                 Important Disclaimer
               </CardTitle>
             </CardHeader>
             <CardContent>
               <ul className="space-y-2 text-sm">
-                <li>• This is a completely safe educational simulation</li>
-                <li>• No real data will be transmitted or stored</li>
-                <li>• All banking interfaces are fake and for demonstration only</li>
-                <li>• The purpose is to educate about cybersecurity threats</li>
+                <li className="transform transition-all duration-300 hover:translate-x-2">• This is a completely safe educational simulation</li>
+                <li className="transform transition-all duration-300 hover:translate-x-2">• No real data will be transmitted or stored</li>
+                <li className="transform transition-all duration-300 hover:translate-x-2">• All banking interfaces are fake and for demonstration only</li>
+                <li className="transform transition-all duration-300 hover:translate-x-2">• The purpose is to educate about cybersecurity threats</li>
               </ul>
             </CardContent>
           </Card>
 
-          <div className="text-center mt-8 mb-16 space-y-6 animate-fade-in" style={{ animationDelay: '0.4s' }}>
-            <p className="text-lg font-semibold text-primary mb-6">Choose Your Simulation Path:</p>
-            <div className="grid sm:grid-cols-1 md:grid-cols-3 gap-4 max-w-3xl mx-auto">
-              <Button 
-                onClick={() => setCurrentStep('sms')} 
-                size="lg"
-                className="bg-gradient-to-r from-primary to-primary-glow transition-all duration-300 hover:scale-105 hover:shadow-lg hover:shadow-primary/25 w-full group"
-              >
-                <span className="transition-transform duration-300 group-hover:scale-110 mr-2">📱</span>
-                SMS Phishing Demo
-              </Button>
-              <Button 
-                onClick={() => setCurrentStep('email')} 
-                size="lg"
-                variant="outline"
-                className="transition-all duration-300 hover:scale-105 hover:shadow-lg hover:bg-primary/5 w-full group"
-              >
-                <span className="transition-transform duration-300 group-hover:scale-110 mr-2">📧</span>
-                Email Phishing Demo
-              </Button>
-              <Button 
-                onClick={() => setCurrentStep('quiz')} 
-                size="lg"
-                variant="secondary"
-                className="transition-all duration-300 hover:scale-105 hover:shadow-lg w-full group"
-              >
-                <span className="transition-transform duration-300 group-hover:scale-110 mr-2">🧠</span>
-                Security Quiz
-              </Button>
+          <div className="text-center mt-12 mb-16 space-y-8 animate-fade-in" style={{ animationDelay: '0.8s' }}>
+            <div className="space-y-4">
+              <p className="text-2xl font-bold text-primary mb-2">🚀 Choose Your Learning Path</p>
+              <p className="text-muted-foreground">Select a simulation to begin your cybersecurity training</p>
+            </div>
+            
+            <div className="grid sm:grid-cols-1 lg:grid-cols-3 gap-6 max-w-4xl mx-auto">
+              <div className="group">
+                <Button 
+                  onClick={() => setCurrentStep('sms')} 
+                  size="lg"
+                  className="w-full h-24 bg-gradient-to-br from-primary via-primary-glow to-secondary text-white shadow-xl hover:shadow-2xl hover:shadow-primary/30 transition-all duration-500 hover:scale-110 hover:-translate-y-2 transform-gpu group-hover:rotate-1"
+                >
+                  <div className="flex flex-col items-center space-y-2">
+                    <span className="text-3xl transition-transform duration-500 group-hover:scale-125 group-hover:animate-pulse">📱</span>
+                    <span className="font-semibold text-lg">SMS Phishing</span>
+                    <span className="text-xs opacity-90">Interactive Demo</span>
+                  </div>
+                </Button>
+              </div>
+              
+              <div className="group">
+                <Button 
+                  onClick={() => setCurrentStep('email')} 
+                  size="lg"
+                  className="w-full h-24 bg-gradient-to-br from-secondary via-primary to-secondary-foreground text-white shadow-xl hover:shadow-2xl hover:shadow-secondary/30 transition-all duration-500 hover:scale-110 hover:-translate-y-2 transform-gpu group-hover:rotate-1"
+                >
+                  <div className="flex flex-col items-center space-y-2">
+                    <span className="text-3xl transition-transform duration-500 group-hover:scale-125 group-hover:animate-pulse">📧</span>
+                    <span className="font-semibold text-lg">Email Phishing</span>
+                    <span className="text-xs opacity-90">Interactive Demo</span>
+                  </div>
+                </Button>
+              </div>
+              
+              <div className="group">
+                <Button 
+                  onClick={() => setCurrentStep('quiz')} 
+                  size="lg"
+                  className="w-full h-24 bg-gradient-to-br from-warning via-warning/80 to-primary text-white shadow-xl hover:shadow-2xl hover:shadow-warning/30 transition-all duration-500 hover:scale-110 hover:-translate-y-2 transform-gpu group-hover:rotate-1"
+                >
+                  <div className="flex flex-col items-center space-y-2">
+                    <span className="text-3xl transition-transform duration-500 group-hover:scale-125 group-hover:animate-pulse">🧠</span>
+                    <span className="font-semibold text-lg">Security Quiz</span>
+                    <span className="text-xs opacity-90">Test Knowledge</span>
+                  </div>
+                </Button>
+              </div>
+            </div>
+            
+            <div className="flex justify-center mt-8">
+              <div className="animate-bounce">
+                <p className="text-sm text-muted-foreground">👆 Click any option to start learning!</p>
+              </div>
             </div>
           </div>
         </div>
