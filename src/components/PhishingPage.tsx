@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Lock, Shield, Eye, EyeOff } from 'lucide-react';
+import { Lock, Shield, Eye, EyeOff, User, CheckCircle } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
@@ -20,115 +20,155 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
   };
 
   return (
-    <div className="min-h-screen bg-bank-blue">
+    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50">
       {/* Educational Warning Banner */}
       <div className="bg-danger text-danger-foreground text-center py-2 px-4">
         <Badge variant="secondary" className="mr-2">🎓 EDUCATIONAL SIMULATION</Badge>
         This is a FAKE banking page for learning purposes only
       </div>
 
-      {/* Fake Bank Header */}
-      <div className="bg-bank-blue text-white shadow-lg">
-        <div className="max-w-6xl mx-auto px-4 py-3">
+      {/* Punjab and Sind Bank Header */}
+      <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg">
+        <div className="max-w-6xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-2">
-              <div className="bg-bank-gold rounded p-2">
-                <Shield className="h-6 w-6 text-bank-blue" />
+            <div className="flex items-center space-x-3">
+              <div className="bg-white rounded-lg p-2">
+                <Shield className="h-8 w-8 text-emerald-600" />
               </div>
               <div>
-                <h1 className="text-xl font-bold">State Bank of India</h1>
-                <p className="text-xs opacity-90">Secure Banking Portal</p>
+                <h1 className="text-2xl font-bold">Punjab and Sind Bank</h1>
+                <p className="text-sm opacity-90">Personal Net Banking</p>
               </div>
             </div>
-            <div className="flex items-center space-x-2 text-sm">
+            <div className="flex items-center space-x-2 text-sm bg-white/10 px-3 py-1 rounded-full">
               <Lock className="h-4 w-4" />
-              <span>secure-sbi-alert.in</span>
+              <span>secure.psb.bank.in</span>
             </div>
           </div>
         </div>
       </div>
 
-      <div className="max-w-md mx-auto p-4 pt-8">
-        <Card className="p-6 shadow-2xl">
-          <div className="text-center mb-6">
-            <div className="bg-destructive/10 rounded-full p-3 w-fit mx-auto mb-4">
-              <Shield className="h-8 w-8 text-destructive" />
-            </div>
-            <h2 className="text-xl font-bold text-destructive mb-2">Security Alert</h2>
-            <p className="text-sm text-muted-foreground">
-              Suspicious activity detected on your account. Please verify your details immediately.
-            </p>
-          </div>
+      <div className="flex items-center justify-center min-h-[calc(100vh-120px)] p-4">
+        <div className="flex max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
+          {/* Left Side - Form */}
+          <div className="flex-1 p-8 lg:p-12">
+            <div className="max-w-md mx-auto">
+              <div className="text-center mb-8">
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Set Login Credentials</h2>
+                <p className="text-gray-600">
+                  Complete your account setup to access your banking services
+                </p>
+              </div>
 
-          <form onSubmit={handleSubmit} className="space-y-4">
-            <div>
-              <Label htmlFor="account">Account Number</Label>
-              <Input
-                id="account"
-                placeholder="Enter your account number"
-                value={formData.account}
-                onChange={(e) => setFormData({ ...formData, account: e.target.value })}
-                className="mt-1"
-              />
-            </div>
+              <form onSubmit={handleSubmit} className="space-y-6">
+                <div>
+                  <Label htmlFor="username" className="text-gray-700 font-medium">
+                    Set Username
+                  </Label>
+                  <div className="relative mt-2">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                      id="username"
+                      placeholder="Enter Username"
+                      value={formData.account}
+                      onChange={(e) => setFormData({ ...formData, account: e.target.value })}
+                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
+                    />
+                    <Button
+                      type="button"
+                      variant="outline"
+                      size="sm"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-emerald-600 border-emerald-600 hover:bg-emerald-50"
+                    >
+                      CHECK AVAILABILITY
+                    </Button>
+                  </div>
+                </div>
 
-            <div>
-              <Label htmlFor="password">Password</Label>
-              <div className="relative">
-                <Input
-                  id="password"
-                  type={showPassword ? 'text' : 'password'}
-                  placeholder="Enter your password"
-                  value={formData.password}
-                  onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                  className="mt-1 pr-10"
-                />
-                <Button
-                  type="button"
-                  variant="ghost"
-                  size="sm"
-                  className="absolute right-0 top-1 h-8 w-8 px-0"
-                  onClick={() => setShowPassword(!showPassword)}
+                <div>
+                  <Label htmlFor="password" className="text-gray-700 font-medium">
+                    Set Password
+                  </Label>
+                  <div className="relative mt-2">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                      id="password"
+                      type={showPassword ? 'text' : 'password'}
+                      placeholder="Enter Password"
+                      value={formData.password}
+                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
+                      className="pl-10 pr-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
+                    />
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 px-0"
+                      onClick={() => setShowPassword(!showPassword)}
+                    >
+                      {showPassword ? <EyeOff className="h-4 w-4 text-gray-400" /> : <Eye className="h-4 w-4 text-gray-400" />}
+                    </Button>
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="confirmPassword" className="text-gray-700 font-medium">
+                    Confirm Password
+                  </Label>
+                  <div className="relative mt-2">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                      id="confirmPassword"
+                      type="password"
+                      placeholder="Re-enter Password"
+                      value={formData.otp}
+                      onChange={(e) => setFormData({ ...formData, otp: e.target.value })}
+                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                <Button 
+                  type="submit" 
+                  className="w-full h-12 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold rounded-lg transition-all duration-200"
                 >
-                  {showPassword ? <EyeOff className="h-4 w-4" /> : <Eye className="h-4 w-4" />}
+                  Create Account
                 </Button>
+              </form>
+
+              <div className="mt-6 text-center">
+                <p className="text-sm text-gray-500">
+                  Customer Care: <span className="font-semibold text-emerald-600">1800-11-2345</span>
+                </p>
               </div>
             </div>
+          </div>
 
-            <div>
-              <Label htmlFor="otp">OTP</Label>
-              <Input
-                id="otp"
-                placeholder="Enter 6-digit OTP"
-                value={formData.otp}
-                onChange={(e) => setFormData({ ...formData, otp: e.target.value })}
-                className="mt-1"
-                maxLength={6}
-              />
-              <p className="text-xs text-muted-foreground mt-1">
-                OTP sent to your registered mobile number
+          {/* Right Side - Illustration */}
+          <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-emerald-100 to-teal-100 items-center justify-center p-8">
+            <div className="text-center">
+              <div className="bg-white rounded-full p-8 shadow-lg mb-6 mx-auto w-48 h-48 flex items-center justify-center">
+                <div className="text-emerald-600">
+                  <User className="h-20 w-20 mx-auto mb-4" />
+                  <CheckCircle className="h-8 w-8 mx-auto" />
+                </div>
+              </div>
+              <h3 className="text-xl font-bold text-gray-800 mb-2">Secure Setup</h3>
+              <p className="text-gray-600 max-w-xs">
+                Create your secure login credentials to access all banking services safely
               </p>
             </div>
-
-            <Button type="submit" className="w-full bg-bank-blue hover:bg-bank-blue/90">
-              Verify & Secure Account
-            </Button>
-          </form>
-
-          <div className="mt-6 p-3 bg-gray-50 rounded-lg">
-            <p className="text-xs text-center text-gray-600">
-              🔒 Your information is protected by 256-bit encryption
-            </p>
           </div>
-        </Card>
+        </div>
+      </div>
 
-        {/* Educational Notice */}
-        <Card className="mt-4 p-4 bg-warning/10 border-warning/30">
+      {/* Educational Notice */}
+      <div className="fixed bottom-4 left-4 right-4 max-w-md mx-auto">
+        <Card className="p-3 bg-warning/10 border-warning/30 backdrop-blur-sm">
           <div className="text-center">
-            <Badge variant="outline" className="mb-2">Educational Notice</Badge>
+            <Badge variant="outline" className="mb-1 text-xs">Educational Notice</Badge>
             <p className="text-xs text-gray-600">
-              In a real scenario, entering your details here would give hackers complete access to your account.
-              This simulation is completely safe - no data is transmitted.
+              This is a FAKE Punjab and Sind Bank page. Real banks never ask for credentials via email/SMS links.
             </p>
           </div>
         </Card>
