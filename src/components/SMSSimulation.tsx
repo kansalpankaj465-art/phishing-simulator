@@ -43,18 +43,16 @@ const SMSSimulation = ({ onNext }: SMSSimulationProps) => {
                 </div>
                 <div className="flex-1">
                   <div className="flex items-center space-x-2 mb-1">
-                    <span className="font-medium text-sm">SBI Secure</span>
+                    <span className="font-medium text-sm">PSB-Alert</span>
                     <span className="text-xs text-gray-500">+91-9876543210</span>
                   </div>
                   <div className="bg-gray-100 rounded-lg p-3 max-w-xs">
                     <p className="text-sm">
-                      🔐 Dear Customer, we noticed a suspicious login attempt on your SBI account from Mumbai at 2:30 PM. 
+                      [PSB-Alert]: Dear Customer, we have temporarily locked your account due to unusual login attempts.
                       <br/><br/>
-                      If this wasn't you, please verify your details immediately: 
+                      Verify immediately at: <span className="text-blue-600 underline">http://psbverify-alerts.online</span>
                       <br/><br/>
-                      <span className="text-blue-600 underline">https://secure-sbi-alert.in/verify</span>
-                      <br/><br/>
-                      - SBI Security Team
+                      - Punjab & Sind Bank Security Team
                     </p>
                   </div>
                   <div className="flex items-center space-x-1 mt-1">
@@ -87,7 +85,7 @@ const SMSSimulation = ({ onNext }: SMSSimulationProps) => {
                 <Card className="p-3 mb-3 text-xs space-y-2">
                   <p>🚩 <strong>Red flags:</strong></p>
                   <ul className="space-y-1 ml-4">
-                    <li>• Suspicious URL (not official SBI domain)</li>
+                    <li>• Suspicious URL (not official PSB domain)</li>
                     <li>• Creates urgency and panic</li>
                     <li>• Asks to "verify details" via link</li>
                     <li>• Generic greeting "Dear Customer"</li>

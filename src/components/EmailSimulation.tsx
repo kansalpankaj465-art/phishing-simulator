@@ -35,10 +35,10 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
                 <div className="flex items-start justify-between">
                   <div className="space-y-1">
                     <div className="flex items-center space-x-2">
-                      <span className="font-semibold">HDFC Bank Security</span>
+                      <span className="font-semibold">🚨 Urgent: Account Verification Required</span>
                       <Badge variant="destructive" className="text-xs">SUSPICIOUS</Badge>
                     </div>
-                    <p className="text-sm text-gray-600">security@hdfc-alerts.co.in</p>
+                    <p className="text-sm text-gray-600">noreply@punjabandsindbank.in</p>
                     <div className="flex items-center space-x-4 text-xs text-gray-500">
                       <div className="flex items-center space-x-1">
                         <Calendar className="h-3 w-3" />
@@ -56,42 +56,32 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
               {/* Email Body */}
               <div className="p-6">
                 <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-red-600">🚨 URGENT: Suspicious Activity Detected</h3>
+                  <h3 className="text-lg font-bold text-red-600">🚨 Urgent: Account Verification Required</h3>
                   
                   <p className="text-gray-700">Dear Valued Customer,</p>
                   
                   <p className="text-gray-700">
-                    We have detected multiple failed login attempts on your HDFC Bank account from an unrecognized device in 
-                    <strong> Kolkata, West Bengal</strong> at <strong>3:15 PM today</strong>.
+                    We have detected unauthorized login attempts on your Punjab & Sind Bank account.
+                    To prevent further misuse, please verify your identity within 12 hours by clicking the button below:
                   </p>
 
-                  <div className="bg-red-50 border border-red-200 rounded-lg p-4">
-                    <h4 className="font-semibold text-red-800 mb-2">Suspicious Activities:</h4>
-                    <ul className="text-sm text-red-700 space-y-1">
-                      <li>• 5 failed login attempts</li>
-                      <li>• Access from new IP address: 203.194.152.78</li>
-                      <li>• Device: Unknown Windows PC</li>
-                    </ul>
-                  </div>
-
-                  <p className="text-gray-700">
-                    <strong>To protect your account, immediate verification is required.</strong> 
-                    Please click the button below to verify your identity and secure your account:
+                  <p className="text-gray-700 font-semibold text-red-600">
+                    Failure to verify may result in account suspension.
                   </p>
 
                   <div className="text-center py-4">
                     <Button 
                       className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-lg"
-                      onClick={() => alert('This would redirect to a fake HDFC page!')}
+                      onClick={() => alert('This would redirect to a fake PSB page!')}
                     >
-                      VERIFY ACCOUNT NOW
+                      👉 Verify Now
                     </Button>
                   </div>
 
                   <div className="text-xs text-gray-500 space-y-1">
-                    <p>This is an automated message from HDFC Bank Security Team.</p>
-                    <p>If you did not request this, please ignore this email.</p>
-                    <p>© 2024 HDFC Bank Ltd. All rights reserved.</p>
+                    <p>Sincerely,</p>
+                    <p>Punjab & Sind Bank Security Team</p>
+                    <p>www.punjabandsindbank.co.in</p>
                   </div>
                 </div>
               </div>
@@ -126,7 +116,7 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
                     <ul className="text-sm space-y-2">
                       <li className="flex items-start space-x-2">
                         <span className="text-red-500 font-bold">•</span>
-                        <span><strong>Fake domain:</strong> hdfc-alerts.co.in (not hdfc.com)</span>
+                        <span><strong>Fake domain:</strong> punjabandsindbank.in (suspicious)</span>
                       </li>
                       <li className="flex items-start space-x-2">
                         <span className="text-red-500 font-bold">•</span>
@@ -148,11 +138,11 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
                     <ul className="text-sm space-y-2">
                       <li className="flex items-start space-x-2">
                         <span className="text-green-500 font-bold">•</span>
-                        <span>Check official HDFC domain (hdfc.com)</span>
+                        <span>Check official PSB domain (psbindia.com)</span>
                       </li>
                       <li className="flex items-start space-x-2">
                         <span className="text-green-500 font-bold">•</span>
-                        <span>Call HDFC customer service directly</span>
+                        <span>Call PSB customer service: 1800-11-2345</span>
                       </li>
                       <li className="flex items-start space-x-2">
                         <span className="text-green-500 font-bold">•</span>

