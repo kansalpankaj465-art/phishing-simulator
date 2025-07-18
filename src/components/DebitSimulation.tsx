@@ -40,26 +40,6 @@ const DebitSimulation = ({ onNext }: DebitSimulationProps) => {
               </div>
             </div>
 
-            {/* Notification */}
-            {showMessage && (
-              <div className="bg-danger text-white p-4 border-l-4 border-red-600 animate-fade-in">
-                <div className="flex items-start space-x-2">
-                  <AlertTriangle className="h-5 w-5 mt-0.5" />
-                  <div className="flex-1">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-semibold text-sm">SBI Alert</span>
-                      <span className="text-xs opacity-90">now</span>
-                    </div>
-                    <p className="text-sm leading-relaxed">
-                      <strong>₹24,000.00</strong> has been debited from your SBI account ending with <strong>0921</strong> on {new Date().toLocaleDateString()} at {new Date().toLocaleTimeString()}.
-                    </p>
-                    <p className="text-xs mt-2 opacity-90">
-                      If this transaction was not made by you, please call 1800-11-2211 immediately.
-                    </p>
-                  </div>
-                </div>
-              </div>
-            )}
 
             {showPanic && (
               <div className="p-4 space-y-4 animate-fade-in">
