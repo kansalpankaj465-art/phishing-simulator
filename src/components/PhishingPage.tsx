@@ -1,10 +1,15 @@
-import { useState } from 'react';
-import { Lock, Shield, Eye, EyeOff, User, CheckCircle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TextInput,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Alert,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface PhishingPageProps {
   onSubmit: (data: { 
@@ -30,223 +35,369 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
   });
   const [showPassword, setShowPassword] = useState(false);
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
+  const handleSubmit = () => {
     onSubmit(formData);
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-emerald-50 to-teal-50">
+    <SafeAreaView style={styles.container}>
       {/* Educational Warning Banner */}
-      <div className="bg-danger text-danger-foreground text-center py-2 px-4">
-        <Badge variant="secondary" className="mr-2">🎓 EDUCATIONAL SIMULATION</Badge>
-        This is a FAKE banking page for learning purposes only
-      </div>
+      <View style={styles.warningBanner}>
+        <View style={styles.warningBadge}>
+          <Text style={styles.warningBadgeText}>🎓 EDUCATIONAL SIMULATION</Text>
+        </View>
+        <Text style={styles.warningText}>This is a FAKE banking page for learning purposes only</Text>
+      </View>
 
       {/* Punjab and Sind Bank Header */}
-      <div className="bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg">
-        <div className="max-w-6xl mx-auto px-4 py-4">
-          <div className="flex items-center justify-between">
-            <div className="flex items-center space-x-3">
-              <div className="bg-white rounded-lg p-2">
-                <Shield className="h-8 w-8 text-emerald-600" />
-              </div>
-              <div>
-                <h1 className="text-2xl font-bold">Punjab and Sind Bank</h1>
-                <p className="text-sm opacity-90">Personal Net Banking</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2 text-sm bg-white/10 px-3 py-1 rounded-full">
-              <Lock className="h-4 w-4" />
-              <span>secure.psb.bank.in</span>
-            </div>
-          </div>
-        </div>
-      </div>
+      <View style={styles.bankHeader}>
+        <View style={styles.bankHeaderContent}>
+          <View style={styles.bankLogo}>
+            <Ionicons name="shield-checkmark" size={32} color="#10B981" />
+          </View>
+          <View style={styles.bankInfo}>
+            <Text style={styles.bankName}>Punjab and Sind Bank</Text>
+            <Text style={styles.bankSubtitle}>Personal Net Banking</Text>
+          </View>
+        </View>
+        <View style={styles.secureIndicator}>
+          <Ionicons name="lock-closed" size={16} color="#FFF" />
+          <Text style={styles.secureText}>secure.psb.bank.in</Text>
+        </View>
+      </View>
 
-      <div className="flex items-center justify-center min-h-[calc(100vh-120px)] p-4">
-        <div className="flex max-w-4xl w-full bg-white rounded-2xl shadow-2xl overflow-hidden">
-          {/* Left Side - Form */}
-          <div className="flex-1 p-8 lg:p-12">
-            <div className="max-w-md mx-auto">
-              <div className="text-center mb-8">
-                <h2 className="text-2xl font-bold text-gray-800 mb-2">Account Verification Required</h2>
-                <p className="text-gray-600">
-                  Please verify your details to secure your Punjab & Sind Bank account
-                </p>
-              </div>
+      <ScrollView style={styles.scrollView} contentContainerStyle={styles.scrollContent}>
+        <View style={styles.formContainer}>
+          <View style={styles.formHeader}>
+            <Text style={styles.formTitle}>Account Verification Required</Text>
+            <Text style={styles.formSubtitle}>
+              Please verify your details to secure your Punjab & Sind Bank account
+            </Text>
+          </View>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
-                <div>
-                  <Label htmlFor="account" className="text-gray-700 font-medium">
-                    Account Number
-                  </Label>
-                  <div className="relative mt-2">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      id="account"
-                      placeholder="Enter Account Number"
-                      value={formData.account}
-                      onChange={(e) => setFormData({ ...formData, account: e.target.value })}
-                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
-                    />
-                  </div>
-                </div>
+          <View style={styles.form}>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Account Number</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons name="person" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter Account Number"
+                  value={formData.account}
+                  onChangeText={(text) => setFormData({ ...formData, account: text })}
+                />
+              </View>
+            </View>
 
-                <div>
-                  <Label htmlFor="debitCard" className="text-gray-700 font-medium">
-                    Debit Card Number
-                  </Label>
-                  <div className="relative mt-2">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      id="debitCard"
-                      placeholder="Enter 16-digit Card Number"
-                      value={formData.debitCard}
-                      onChange={(e) => setFormData({ ...formData, debitCard: e.target.value })}
-                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
-                    />
-                  </div>
-                </div>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Debit Card Number</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons name="card" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter 16-digit Card Number"
+                  value={formData.debitCard}
+                  onChangeText={(text) => setFormData({ ...formData, debitCard: text })}
+                />
+              </View>
+            </View>
 
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="cvv" className="text-gray-700 font-medium">
-                      CVV
-                    </Label>
-                    <div className="relative mt-2">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <Input
-                        id="cvv"
-                        placeholder="CVV"
-                        value={formData.cvv}
-                        onChange={(e) => setFormData({ ...formData, cvv: e.target.value })}
-                        className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
-                      />
-                    </div>
-                  </div>
-                  <div>
-                    <Label htmlFor="otp" className="text-gray-700 font-medium">
-                      OTP
-                    </Label>
-                    <div className="relative mt-2">
-                      <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                      <Input
-                        id="otp"
-                        placeholder="Enter OTP"
-                        value={formData.otp}
-                        onChange={(e) => setFormData({ ...formData, otp: e.target.value })}
-                        className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
-                      />
-                    </div>
-                  </div>
-                </div>
+            <View style={styles.inputRow}>
+              <View style={[styles.inputGroup, styles.inputHalf]}>
+                <Text style={styles.label}>CVV</Text>
+                <View style={styles.inputContainer}>
+                  <Ionicons name="lock-closed" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="CVV"
+                    value={formData.cvv}
+                    onChangeText={(text) => setFormData({ ...formData, cvv: text })}
+                  />
+                </View>
+              </View>
+              <View style={[styles.inputGroup, styles.inputHalf]}>
+                <Text style={styles.label}>OTP</Text>
+                <View style={styles.inputContainer}>
+                  <Ionicons name="lock-closed" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                  <TextInput
+                    style={styles.input}
+                    placeholder="Enter OTP"
+                    value={formData.otp}
+                    onChangeText={(text) => setFormData({ ...formData, otp: text })}
+                  />
+                </View>
+              </View>
+            </View>
 
-                <div>
-                  <Label htmlFor="mobile" className="text-gray-700 font-medium">
-                    Mobile Number
-                  </Label>
-                  <div className="relative mt-2">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      id="mobile"
-                      placeholder="Enter Mobile Number"
-                      value={formData.mobile}
-                      onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
-                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
-                    />
-                  </div>
-                </div>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Mobile Number</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons name="call" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter Mobile Number"
+                  value={formData.mobile}
+                  onChangeText={(text) => setFormData({ ...formData, mobile: text })}
+                />
+              </View>
+            </View>
 
-                <div>
-                  <Label htmlFor="username" className="text-gray-700 font-medium">
-                    Net Banking Username
-                  </Label>
-                  <div className="relative mt-2">
-                    <User className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      id="username"
-                      placeholder="Enter Username"
-                      value={formData.username}
-                      onChange={(e) => setFormData({ ...formData, username: e.target.value })}
-                      className="pl-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
-                    />
-                  </div>
-                </div>
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Net Banking Username</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons name="person" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter Username"
+                  value={formData.username}
+                  onChangeText={(text) => setFormData({ ...formData, username: text })}
+                />
+              </View>
+            </View>
 
-                <div>
-                  <Label htmlFor="password" className="text-gray-700 font-medium">
-                    Net Banking Password
-                  </Label>
-                  <div className="relative mt-2">
-                    <Lock className="absolute left-3 top-1/2 transform -translate-y-1/2 h-5 w-5 text-gray-400" />
-                    <Input
-                      id="password"
-                      type={showPassword ? 'text' : 'password'}
-                      placeholder="Enter Password"
-                      value={formData.password}
-                      onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                      className="pl-10 pr-10 h-12 border-2 border-gray-200 focus:border-emerald-500 rounded-lg"
-                    />
-                    <Button
-                      type="button"
-                      variant="ghost"
-                      size="sm"
-                      className="absolute right-2 top-1/2 transform -translate-y-1/2 h-8 w-8 px-0"
-                      onClick={() => setShowPassword(!showPassword)}
-                    >
-                      {showPassword ? <EyeOff className="h-4 w-4 text-gray-400" /> : <Eye className="h-4 w-4 text-gray-400" />}
-                    </Button>
-                  </div>
-                </div>
-
-                <Button 
-                  type="submit" 
-                  className="w-full h-12 bg-gradient-to-r from-emerald-600 to-teal-600 hover:from-emerald-700 hover:to-teal-700 text-white font-semibold rounded-lg transition-all duration-200"
+            <View style={styles.inputGroup}>
+              <Text style={styles.label}>Net Banking Password</Text>
+              <View style={styles.inputContainer}>
+                <Ionicons name="lock-closed" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <TextInput
+                  style={styles.input}
+                  placeholder="Enter Password"
+                  secureTextEntry={!showPassword}
+                  value={formData.password}
+                  onChangeText={(text) => setFormData({ ...formData, password: text })}
+                />
+                <TouchableOpacity
+                  style={styles.eyeButton}
+                  onPress={() => setShowPassword(!showPassword)}
                 >
-                  Verify Account
-                </Button>
-              </form>
+                  <Ionicons 
+                    name={showPassword ? "eye-off" : "eye"} 
+                    size={20} 
+                    color="#9CA3AF" 
+                  />
+                </TouchableOpacity>
+              </View>
+            </View>
 
-              <div className="mt-6 text-center">
-                <p className="text-sm text-gray-500">
-                  Customer Care: <span className="font-semibold text-emerald-600">1800-11-2345</span>
-                </p>
-              </div>
-            </div>
-          </div>
+            <TouchableOpacity style={styles.submitButton} onPress={handleSubmit}>
+              <Text style={styles.submitButtonText}>Verify Account</Text>
+            </TouchableOpacity>
+          </View>
 
-          {/* Right Side - Illustration */}
-          <div className="hidden lg:flex lg:flex-1 bg-gradient-to-br from-emerald-100 to-teal-100 items-center justify-center p-8">
-            <div className="text-center">
-              <div className="bg-white rounded-full p-8 shadow-lg mb-6 mx-auto w-48 h-48 flex items-center justify-center">
-                <div className="text-emerald-600">
-                  <User className="h-20 w-20 mx-auto mb-4" />
-                  <CheckCircle className="h-8 w-8 mx-auto" />
-                </div>
-              </div>
-              <h3 className="text-xl font-bold text-gray-800 mb-2">Secure Setup</h3>
-              <p className="text-gray-600 max-w-xs">
-                Create your secure login credentials to access all banking services safely
-              </p>
-            </div>
-          </div>
-        </div>
-      </div>
+          <View style={styles.customerCare}>
+            <Text style={styles.customerCareText}>
+              Customer Care: <Text style={styles.customerCareNumber}>1800-11-2345</Text>
+            </Text>
+          </View>
+        </View>
+      </ScrollView>
 
       {/* Educational Notice */}
-      <div className="fixed bottom-4 left-4 right-4 max-w-md mx-auto">
-        <Card className="p-3 bg-warning/10 border-warning/30 backdrop-blur-sm">
-          <div className="text-center">
-            <Badge variant="outline" className="mb-1 text-xs">Educational Notice</Badge>
-            <p className="text-xs text-gray-600">
-              This is a FAKE Punjab and Sind Bank page. Real banks never ask for credentials via email/SMS links.
-            </p>
-          </div>
-        </Card>
-      </div>
-    </div>
+      <View style={styles.educationalNotice}>
+        <View style={styles.noticeBadge}>
+          <Text style={styles.noticeBadgeText}>Educational Notice</Text>
+        </View>
+        <Text style={styles.noticeText}>
+          This is a FAKE Punjab and Sind Bank page. Real banks never ask for credentials via email/SMS links.
+        </Text>
+      </View>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F0FDF4',
+  },
+  warningBanner: {
+    backgroundColor: '#DC2626',
+    paddingVertical: 8,
+    paddingHorizontal: 16,
+    alignItems: 'center',
+  },
+  warningBadge: {
+    backgroundColor: '#E5E7EB',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 4,
+    marginBottom: 4,
+  },
+  warningBadgeText: {
+    fontSize: 12,
+    color: '#374151',
+    fontWeight: '600',
+  },
+  warningText: {
+    fontSize: 12,
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  bankHeader: {
+    backgroundColor: '#10B981',
+    paddingVertical: 16,
+    paddingHorizontal: 16,
+  },
+  bankHeaderContent: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 8,
+  },
+  bankLogo: {
+    backgroundColor: '#FFF',
+    padding: 8,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  bankInfo: {
+    flex: 1,
+  },
+  bankName: {
+    fontSize: 20,
+    fontWeight: 'bold',
+    color: '#FFF',
+  },
+  bankSubtitle: {
+    fontSize: 14,
+    color: 'rgba(255, 255, 255, 0.9)',
+  },
+  secureIndicator: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: 'rgba(255, 255, 255, 0.1)',
+    paddingHorizontal: 12,
+    paddingVertical: 4,
+    borderRadius: 16,
+    alignSelf: 'flex-start',
+    gap: 4,
+  },
+  secureText: {
+    fontSize: 12,
+    color: '#FFF',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  scrollContent: {
+    padding: 16,
+  },
+  formContainer: {
+    backgroundColor: '#FFF',
+    borderRadius: 16,
+    padding: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 8,
+  },
+  formHeader: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  formTitle: {
+    fontSize: 24,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    marginBottom: 8,
+    textAlign: 'center',
+  },
+  formSubtitle: {
+    fontSize: 16,
+    color: '#6B7280',
+    textAlign: 'center',
+    lineHeight: 22,
+  },
+  form: {
+    gap: 16,
+  },
+  inputGroup: {
+    gap: 8,
+  },
+  inputRow: {
+    flexDirection: 'row',
+    gap: 16,
+  },
+  inputHalf: {
+    flex: 1,
+  },
+  label: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#374151',
+  },
+  inputContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    borderWidth: 2,
+    borderColor: '#E5E7EB',
+    borderRadius: 8,
+    paddingHorizontal: 12,
+    backgroundColor: '#FFF',
+    height: 48,
+  },
+  inputIcon: {
+    marginRight: 8,
+  },
+  input: {
+    flex: 1,
+    fontSize: 16,
+    color: '#1F2937',
+  },
+  eyeButton: {
+    padding: 4,
+  },
+  submitButton: {
+    backgroundColor: '#10B981',
+    paddingVertical: 16,
+    borderRadius: 8,
+    marginTop: 8,
+  },
+  submitButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FFF',
+    textAlign: 'center',
+  },
+  customerCare: {
+    marginTop: 24,
+    alignItems: 'center',
+  },
+  customerCareText: {
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  customerCareNumber: {
+    fontWeight: '600',
+    color: '#10B981',
+  },
+  educationalNotice: {
+    backgroundColor: '#FFFBEB',
+    margin: 16,
+    padding: 12,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#FDE68A',
+    alignItems: 'center',
+  },
+  noticeBadge: {
+    backgroundColor: '#F3F4F6',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 4,
+    marginBottom: 4,
+  },
+  noticeBadgeText: {
+    fontSize: 10,
+    color: '#374151',
+    fontWeight: '600',
+  },
+  noticeText: {
+    fontSize: 12,
+    color: '#92400E',
+    textAlign: 'center',
+    lineHeight: 16,
+  },
+});
 
 export default PhishingPage;

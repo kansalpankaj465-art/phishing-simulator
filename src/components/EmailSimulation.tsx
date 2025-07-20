@@ -1,8 +1,13 @@
-import { useState } from 'react';
-import { Mail, Calendar, Clock, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface EmailSimulationProps {
   onNext: () => void;
@@ -12,165 +17,338 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
   const [showAnalysis, setShowAnalysis] = useState(false);
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-slate-100 to-slate-200 p-4">
-      <div className="max-w-4xl mx-auto">
+    <SafeAreaView style={styles.container}>
+      <ScrollView style={styles.scrollView}>
         {/* Email Client Interface */}
-        <div className="bg-white rounded-lg shadow-2xl overflow-hidden">
+        <View style={styles.emailClient}>
           {/* Email Header */}
-          <div className="bg-gray-50 border-b p-4">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <Mail className="h-6 w-6 text-blue-600" />
-                <h2 className="text-lg font-semibold">Gmail</h2>
-              </div>
-              <div className="text-sm text-gray-500">Inbox (1)</div>
-            </div>
-          </div>
+          <View style={styles.emailHeader}>
+            <View style={styles.headerLeft}>
+              <Ionicons name="mail" size={24} color="#1D4ED8" />
+              <Text style={styles.headerTitle}>Gmail</Text>
+            </View>
+            <Text style={styles.headerRight}>Inbox (1)</Text>
+          </View>
 
           {/* Email Content */}
-          <div className="p-6">
-            <div className="border rounded-lg overflow-hidden">
+          <View style={styles.emailContent}>
+            <View style={styles.emailCard}>
               {/* Email Header Info */}
-              <div className="bg-gray-50 p-4 border-b">
-                <div className="flex items-start justify-between">
-                  <div className="space-y-1">
-                    <div className="flex items-center space-x-2">
-                      <span className="font-semibold">🚨 Urgent: Account Verification Required</span>
-                      <Badge variant="destructive" className="text-xs">SUSPICIOUS</Badge>
-                    </div>
-                    <p className="text-sm text-gray-600">noreply@punjabandsindbank.in</p>
-                    <div className="flex items-center space-x-4 text-xs text-gray-500">
-                      <div className="flex items-center space-x-1">
-                        <Calendar className="h-3 w-3" />
-                        <span>Today</span>
-                      </div>
-                      <div className="flex items-center space-x-1">
-                        <Clock className="h-3 w-3" />
-                        <span>3:42 PM</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              <View style={styles.emailInfo}>
+                <View style={styles.emailSubject}>
+                  <Text style={styles.subjectText}>🚨 Urgent: Account Verification Required</Text>
+                  <View style={styles.suspiciousBadge}>
+                    <Text style={styles.suspiciousBadgeText}>SUSPICIOUS</Text>
+                  </View>
+                </View>
+                <Text style={styles.senderEmail}>noreply@punjabandsindbank.in</Text>
+                <View style={styles.emailMeta}>
+                  <View style={styles.metaItem}>
+                    <Ionicons name="calendar" size={12} color="#666" />
+                    <Text style={styles.metaText}>Today</Text>
+                  </View>
+                  <View style={styles.metaItem}>
+                    <Ionicons name="time" size={12} color="#666" />
+                    <Text style={styles.metaText}>3:42 PM</Text>
+                  </View>
+                </View>
+              </View>
 
               {/* Email Body */}
-              <div className="p-6">
-                <div className="space-y-4">
-                  <h3 className="text-lg font-bold text-red-600">🚨 Urgent: Account Verification Required</h3>
-                  
-                  <p className="text-gray-700">Dear Valued Customer,</p>
-                  
-                  <p className="text-gray-700">
-                    We have detected unauthorized login attempts on your Punjab & Sind Bank account.
-                    To prevent further misuse, please verify your identity within 12 hours by clicking the button below:
-                  </p>
-
-                  <p className="text-gray-700 font-semibold text-red-600">
-                    Failure to verify may result in account suspension.
-                  </p>
-
-                  <div className="text-center py-4">
-                    <Button 
-                      className="bg-red-600 hover:bg-red-700 text-white px-8 py-3 text-lg"
-                      onClick={() => alert('This would redirect to a fake PSB page!')}
-                    >
-                      👉 Verify Now
-                    </Button>
-                  </div>
-
-                  <div className="text-xs text-gray-500 space-y-1">
-                    <p>Sincerely,</p>
-                    <p>Punjab & Sind Bank Security Team</p>
-                    <p>www.punjabandsindbank.co.in</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+              <View style={styles.emailBody}>
+                <Text style={styles.emailTitle}>🚨 Urgent: Account Verification Required</Text>
+                <Text style={styles.emailText}>Dear Valued Customer,</Text>
+                <Text style={styles.emailText}>
+                  We have detected unauthorized login attempts on your Punjab & Sind Bank account.
+                  To prevent further misuse, please verify your identity within 12 hours by clicking the button below:
+                </Text>
+                <Text style={styles.warningText}>
+                  Failure to verify may result in account suspension.
+                </Text>
+                <TouchableOpacity
+                  style={styles.verifyButton}
+                  onPress={() => alert('This would redirect to a fake PSB page!')}
+                >
+                  <Text style={styles.verifyButtonText}>👉 Verify Now</Text>
+                </TouchableOpacity>
+                <View style={styles.signature}>
+                  <Text style={styles.signatureText}>Sincerely,</Text>
+                  <Text style={styles.signatureText}>Punjab & Sind Bank Security Team</Text>
+                  <Text style={styles.signatureText}>www.punjabandsindbank.co.in</Text>
+                </View>
+              </View>
+            </View>
+          </View>
+        </View>
 
         {/* Educational Analysis */}
-        <div className="mt-6">
-          <Card className="p-6 bg-warning/10 border-warning/30">
-            <div className="flex items-center justify-between mb-4">
-              <div className="flex items-center space-x-2">
-                <AlertTriangle className="h-5 w-5 text-warning" />
-                <h3 className="font-semibold">🎓 Educational Analysis</h3>
-              </div>
-              <Badge variant="secondary">SIMULATION</Badge>
-            </div>
+        <View style={styles.analysisCard}>
+          <View style={styles.analysisHeader}>
+            <View style={styles.analysisTitle}>
+              <Ionicons name="warning" size={20} color="#F59E0B" />
+              <Text style={styles.analysisTitleText}>🎓 Educational Analysis</Text>
+            </View>
+            <View style={styles.simulationBadge}>
+              <Text style={styles.simulationBadgeText}>SIMULATION</Text>
+            </View>
+          </View>
 
-            {!showAnalysis ? (
-              <Button 
-                onClick={() => setShowAnalysis(true)}
-                variant="outline"
-                className="w-full"
-              >
-                Analyze This Phishing Email
-              </Button>
-            ) : (
-              <div className="space-y-4">
-                <div className="grid md:grid-cols-2 gap-4">
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-red-600">🚩 Red Flags Found:</h4>
-                    <ul className="text-sm space-y-2">
-                      <li className="flex items-start space-x-2">
-                        <span className="text-red-500 font-bold">•</span>
-                        <span><strong>Fake domain:</strong> punjabandsindbank.in (suspicious)</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <span className="text-red-500 font-bold">•</span>
-                        <span><strong>Urgency tactics:</strong> "URGENT", "immediate verification"</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <span className="text-red-500 font-bold">•</span>
-                        <span><strong>Generic greeting:</strong> "Dear Valued Customer"</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <span className="text-red-500 font-bold">•</span>
-                        <span><strong>Suspicious button:</strong> Asking to click to "verify"</span>
-                      </li>
-                    </ul>
-                  </div>
-                  
-                  <div className="space-y-3">
-                    <h4 className="font-semibold text-green-600">✅ How to Verify:</h4>
-                    <ul className="text-sm space-y-2">
-                      <li className="flex items-start space-x-2">
-                        <span className="text-green-500 font-bold">•</span>
-                        <span>Check official PSB domain (psbindia.com)</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <span className="text-green-500 font-bold">•</span>
-                        <span>Call PSB customer service: 1800-11-2345</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <span className="text-green-500 font-bold">•</span>
-                        <span>Login through official app/website</span>
-                      </li>
-                      <li className="flex items-start space-x-2">
-                        <span className="text-green-500 font-bold">•</span>
-                        <span>Never click links in suspicious emails</span>
-                      </li>
-                    </ul>
-                  </div>
-                </div>
-                
-                <div className="pt-4 border-t">
-                  <Button 
-                    onClick={onNext} 
-                    className="w-full bg-gradient-to-r from-primary to-secondary"
-                  >
-                    Continue to Bank Page Simulation →
-                  </Button>
-                </div>
-              </div>
-            )}
-          </Card>
-        </div>
-      </div>
-    </div>
+          {!showAnalysis ? (
+            <TouchableOpacity
+              style={styles.analyzeButton}
+              onPress={() => setShowAnalysis(true)}
+            >
+              <Text style={styles.analyzeButtonText}>Analyze This Phishing Email</Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={styles.analysisContent}>
+              <View style={styles.analysisSection}>
+                <Text style={styles.sectionTitle}>🚩 Red Flags Found:</Text>
+                <Text style={styles.flagItem}>• Fake domain: punjabandsindbank.in (suspicious)</Text>
+                <Text style={styles.flagItem}>• Urgency tactics: "URGENT", "immediate verification"</Text>
+                <Text style={styles.flagItem}>• Generic greeting: "Dear Valued Customer"</Text>
+                <Text style={styles.flagItem}>• Suspicious button: Asking to click to "verify"</Text>
+              </View>
+
+              <View style={styles.analysisSection}>
+                <Text style={styles.sectionTitle}>✅ How to Verify:</Text>
+                <Text style={styles.verifyItem}>• Check official PSB domain (psbindia.com)</Text>
+                <Text style={styles.verifyItem}>• Call PSB customer service: 1800-11-2345</Text>
+                <Text style={styles.verifyItem}>• Login through official app/website</Text>
+                <Text style={styles.verifyItem}>• Never click links in suspicious emails</Text>
+              </View>
+
+              <TouchableOpacity style={styles.continueButton} onPress={onNext}>
+                <Text style={styles.continueButtonText}>Continue to Bank Page Simulation →</Text>
+              </TouchableOpacity>
+            </View>
+          )}
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F1F5F9',
+  },
+  scrollView: {
+    flex: 1,
+  },
+  emailClient: {
+    backgroundColor: '#FFF',
+    margin: 16,
+    borderRadius: 12,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 8,
+    overflow: 'hidden',
+  },
+  emailHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    backgroundColor: '#F8F9FA',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  headerLeft: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  headerTitle: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#1F2937',
+  },
+  headerRight: {
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  emailContent: {
+    padding: 24,
+  },
+  emailCard: {
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+    borderRadius: 8,
+    overflow: 'hidden',
+  },
+  emailInfo: {
+    backgroundColor: '#F8F9FA',
+    padding: 16,
+    borderBottomWidth: 1,
+    borderBottomColor: '#E5E7EB',
+  },
+  emailSubject: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginBottom: 4,
+  },
+  subjectText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#1F2937',
+    flex: 1,
+  },
+  suspiciousBadge: {
+    backgroundColor: '#DC2626',
+    paddingHorizontal: 8,
+    paddingVertical: 2,
+    borderRadius: 4,
+  },
+  suspiciousBadgeText: {
+    fontSize: 10,
+    color: '#FFF',
+    fontWeight: '600',
+  },
+  senderEmail: {
+    fontSize: 14,
+    color: '#6B7280',
+    marginBottom: 8,
+  },
+  emailMeta: {
+    flexDirection: 'row',
+    gap: 16,
+  },
+  metaItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 4,
+  },
+  metaText: {
+    fontSize: 12,
+    color: '#6B7280',
+  },
+  emailBody: {
+    padding: 24,
+  },
+  emailTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#DC2626',
+    marginBottom: 16,
+  },
+  emailText: {
+    fontSize: 14,
+    color: '#374151',
+    lineHeight: 20,
+    marginBottom: 12,
+  },
+  warningText: {
+    fontSize: 14,
+    color: '#DC2626',
+    fontWeight: '600',
+    marginBottom: 16,
+  },
+  verifyButton: {
+    backgroundColor: '#DC2626',
+    paddingVertical: 12,
+    paddingHorizontal: 32,
+    borderRadius: 8,
+    alignSelf: 'center',
+    marginBottom: 24,
+  },
+  verifyButtonText: {
+    fontSize: 16,
+    color: '#FFF',
+    fontWeight: '600',
+  },
+  signature: {
+    gap: 4,
+  },
+  signatureText: {
+    fontSize: 12,
+    color: '#6B7280',
+  },
+  analysisCard: {
+    backgroundColor: '#FFFBEB',
+    margin: 16,
+    padding: 24,
+    borderRadius: 12,
+    borderWidth: 1,
+    borderColor: '#FDE68A',
+  },
+  analysisHeader: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  analysisTitle: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+  },
+  analysisTitleText: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#92400E',
+  },
+  simulationBadge: {
+    backgroundColor: '#E5E7EB',
+    paddingHorizontal: 8,
+    paddingVertical: 4,
+    borderRadius: 4,
+  },
+  simulationBadgeText: {
+    fontSize: 12,
+    color: '#374151',
+    fontWeight: '600',
+  },
+  analyzeButton: {
+    backgroundColor: '#FFF',
+    padding: 16,
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+  },
+  analyzeButtonText: {
+    fontSize: 16,
+    color: '#374151',
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  analysisContent: {
+    gap: 16,
+  },
+  analysisSection: {
+    gap: 8,
+  },
+  sectionTitle: {
+    fontSize: 14,
+    fontWeight: '600',
+    color: '#92400E',
+  },
+  flagItem: {
+    fontSize: 13,
+    color: '#78350F',
+    lineHeight: 18,
+  },
+  verifyItem: {
+    fontSize: 13,
+    color: '#78350F',
+    lineHeight: 18,
+  },
+  continueButton: {
+    backgroundColor: '#3B82F6',
+    padding: 16,
+    borderRadius: 8,
+    marginTop: 8,
+  },
+  continueButtonText: {
+    fontSize: 16,
+    color: '#FFF',
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+});
 
 export default EmailSimulation;

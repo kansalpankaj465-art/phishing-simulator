@@ -1,7 +1,14 @@
-import { Shield, CheckCircle, Eye, Globe, Phone, AlertTriangle } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
+import React from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+  Linking,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface SecurityTipsProps {
   onRestart: () => void;
@@ -10,25 +17,25 @@ interface SecurityTipsProps {
 const SecurityTips = ({ onRestart }: SecurityTipsProps) => {
   const tips = [
     {
-      icon: Globe,
+      icon: 'globe-outline',
       title: "Check the URL Carefully",
       description: "Always verify the website URL. Banks use specific domains like sbi.co.in, not variations like secure-sbi-alert.in",
       example: "✅ https://onlinesbi.sbi.co.in vs ❌ https://secure-sbi-alert.in"
     },
     {
-      icon: Phone,
+      icon: 'call-outline',
       title: "Banks Never Ask for Sensitive Info",
       description: "Legitimate banks will NEVER ask for passwords, OTPs, or account details via SMS, email, or phone calls",
       example: "If in doubt, call your bank's official customer service number directly"
     },
     {
-      icon: Eye,
+      icon: 'eye-outline',
       title: "Look for Security Indicators",
       description: "Check for SSL certificates (https://), proper spelling, and official branding before entering any information",
       example: "Look for the padlock icon in your browser's address bar"
     },
     {
-      icon: AlertTriangle,
+      icon: 'warning-outline',
       title: "Beware of Urgency Tactics",
       description: "Scammers create false urgency. Take time to verify suspicious messages instead of acting immediately",
       example: "Phrases like 'verify immediately' or 'account will be blocked' are red flags"
@@ -44,103 +51,278 @@ const SecurityTips = ({ onRestart }: SecurityTipsProps) => {
     "Enable two-factor authentication where available"
   ];
 
+  const handleReportCrime = () => {
+    Linking.openURL('https://cybercrime.gov.in/');
+  };
+
   return (
-    <div className="min-h-screen bg-gradient-to-br from-secondary/5 to-primary/5 p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="text-center mb-8">
-          <div className="mx-auto w-16 h-16 bg-secondary rounded-full flex items-center justify-center mb-4">
-            <Shield className="h-8 w-8 text-white" />
-          </div>
-          <h1 className="text-4xl font-bold bg-gradient-to-r from-secondary to-primary bg-clip-text text-transparent mb-4">
-            🛡️ How to Stay Protected
-          </h1>
-          <Badge variant="secondary" className="text-base px-4 py-2">Your Security Toolkit</Badge>
-        </div>
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.header}>
+          <View style={styles.headerIcon}>
+            <Ionicons name="shield-checkmark" size={32} color="#FFF" />
+          </View>
+          <Text style={styles.title}>🛡️ How to Stay Protected</Text>
+          <View style={styles.badge}>
+            <Text style={styles.badgeText}>Your Security Toolkit</Text>
+          </View>
+        </View>
 
-        <div className="grid md:grid-cols-2 gap-6 mb-8">
+        <View style={styles.tipsGrid}>
           {tips.map((tip, index) => (
-            <Card key={index} className="border-primary/20">
-              <CardHeader>
-                <div className="flex items-center space-x-3">
-                  <div className="p-2 bg-primary/10 rounded-lg">
-                    <tip.icon className="h-6 w-6 text-primary" />
-                  </div>
-                  <CardTitle className="text-lg">{tip.title}</CardTitle>
-                </div>
-              </CardHeader>
-              <CardContent>
-                <CardDescription className="mb-3 text-base">
-                  {tip.description}
-                </CardDescription>
-                <div className="bg-muted p-3 rounded-lg">
-                  <p className="text-sm font-mono">{tip.example}</p>
-                </div>
-              </CardContent>
-            </Card>
+            <View key={index} style={styles.tipCard}>
+              <View style={styles.tipHeader}>
+                <View style={styles.tipIcon}>
+                  <Ionicons name={tip.icon as any} size={24} color="#3B82F6" />
+                </View>
+                <Text style={styles.tipTitle}>{tip.title}</Text>
+              </View>
+              <Text style={styles.tipDescription}>{tip.description}</Text>
+              <View style={styles.tipExample}>
+                <Text style={styles.tipExampleText}>{tip.example}</Text>
+              </View>
+            </View>
           ))}
-        </div>
+        </View>
 
-        <Card className="mb-8 bg-secondary/10 border-secondary/30">
-          <CardHeader>
-            <CardTitle className="flex items-center text-secondary">
-              <CheckCircle className="h-5 w-5 mr-2" />
-              Prevention Checklist
-            </CardTitle>
-            <CardDescription>Follow these steps to protect yourself</CardDescription>
-          </CardHeader>
-          <CardContent>
-            <div className="grid md:grid-cols-2 gap-4">
-              {preventionSteps.map((step, index) => (
-                <div key={index} className="flex items-center space-x-3">
-                  <CheckCircle className="h-4 w-4 text-secondary flex-shrink-0" />
-                  <span className="text-sm">{step}</span>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <View style={styles.checklistCard}>
+          <View style={styles.checklistHeader}>
+            <Ionicons name="checkmark-circle" size={20} color="#10B981" />
+            <Text style={styles.checklistTitle}>Prevention Checklist</Text>
+          </View>
+          <Text style={styles.checklistSubtitle}>Follow these steps to protect yourself</Text>
+          <View style={styles.checklistItems}>
+            {preventionSteps.map((step, index) => (
+              <View key={index} style={styles.checklistItem}>
+                <Ionicons name="checkmark-circle" size={16} color="#10B981" />
+                <Text style={styles.checklistItemText}>{step}</Text>
+              </View>
+            ))}
+          </View>
+        </View>
 
-        <Card className="mb-8 bg-primary/10 border-primary/30">
-          <CardHeader>
-            <CardTitle className="text-primary">Remember: You Are the First Line of Defense</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <p className="text-base mb-4">
-              Technology can help, but your awareness and caution are the most important factors in staying safe online. 
-              When in doubt, always:
-            </p>
-            <div className="space-y-2">
-              <p>🛑 <strong>Stop</strong> - Don't act on impulse</p>
-              <p>🤔 <strong>Think</strong> - Is this request legitimate?</p>
-              <p>📞 <strong>Verify</strong> - Contact your bank directly using official numbers</p>
-            </div>
-          </CardContent>
-        </Card>
+        <View style={styles.reminderCard}>
+          <Text style={styles.reminderTitle}>Remember: You Are the First Line of Defense</Text>
+          <Text style={styles.reminderDescription}>
+            Technology can help, but your awareness and caution are the most important factors in staying safe online. 
+            When in doubt, always:
+          </Text>
+          <View style={styles.reminderSteps}>
+            <Text style={styles.reminderStep}>🛑 <Text style={styles.bold}>Stop</Text> - Don't act on impulse</Text>
+            <Text style={styles.reminderStep}>🤔 <Text style={styles.bold}>Think</Text> - Is this request legitimate?</Text>
+            <Text style={styles.reminderStep}>📞 <Text style={styles.bold}>Verify</Text> - Contact your bank directly using official numbers</Text>
+          </View>
+        </View>
 
-        <div className="text-center space-y-4">
-          <p className="text-lg font-semibold text-primary">
+        <View style={styles.congratulations}>
+          <Text style={styles.congratulationsText}>
             🎓 Congratulations! You've completed the security awareness simulation.
-          </p>
-          <div className="space-x-4">
-            <Button 
-              onClick={onRestart} 
-              size="lg"
-              className="bg-gradient-to-r from-primary to-secondary"
-            >
-              Restart Simulation
-            </Button>
-            <Button 
-              variant="outline" 
-              size="lg"
-              onClick={() => window.open('https://cybercrime.gov.in/', '_blank')}
-            >
-              Report Real Cybercrime
-            </Button>
-          </div>
-        </div>
-      </div>
-    </div>
+          </Text>
+        </View>
+
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity style={styles.restartButton} onPress={onRestart}>
+            <Text style={styles.restartButtonText}>Restart Simulation</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.reportButton} onPress={handleReportCrime}>
+            <Text style={styles.reportButtonText}>Report Real Cybercrime</Text>
+          </TouchableOpacity>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F0FDF4',
+  },
+  scrollContent: {
+    padding: 16,
+  },
+  header: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  headerIcon: {
+    backgroundColor: '#10B981',
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  title: {
+    fontSize: 32,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    textAlign: 'center',
+    marginBottom: 16,
+  },
+  badge: {
+    backgroundColor: '#10B981',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 16,
+  },
+  badgeText: {
+    fontSize: 16,
+    color: '#FFF',
+    fontWeight: '600',
+  },
+  tipsGrid: {
+    gap: 24,
+    marginBottom: 32,
+  },
+  tipCard: {
+    backgroundColor: '#FFF',
+    borderRadius: 12,
+    padding: 20,
+    borderWidth: 1,
+    borderColor: '#BFDBFE',
+  },
+  tipHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 12,
+  },
+  tipIcon: {
+    backgroundColor: '#EBF4FF',
+    padding: 8,
+    borderRadius: 8,
+    marginRight: 12,
+  },
+  tipTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    flex: 1,
+  },
+  tipDescription: {
+    fontSize: 16,
+    color: '#374151',
+    lineHeight: 24,
+    marginBottom: 12,
+  },
+  tipExample: {
+    backgroundColor: '#F3F4F6',
+    padding: 12,
+    borderRadius: 8,
+  },
+  tipExampleText: {
+    fontSize: 14,
+    fontFamily: 'monospace',
+    color: '#374151',
+  },
+  checklistCard: {
+    backgroundColor: '#ECFDF5',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 32,
+    borderWidth: 1,
+    borderColor: '#A7F3D0',
+  },
+  checklistHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 4,
+  },
+  checklistTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#10B981',
+    marginLeft: 8,
+  },
+  checklistSubtitle: {
+    fontSize: 14,
+    color: '#059669',
+    marginBottom: 16,
+  },
+  checklistItems: {
+    gap: 12,
+  },
+  checklistItem: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 12,
+  },
+  checklistItemText: {
+    fontSize: 14,
+    color: '#374151',
+    flex: 1,
+  },
+  reminderCard: {
+    backgroundColor: '#EBF4FF',
+    borderRadius: 12,
+    padding: 20,
+    marginBottom: 32,
+    borderWidth: 1,
+    borderColor: '#BFDBFE',
+  },
+  reminderTitle: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#3B82F6',
+    marginBottom: 16,
+  },
+  reminderDescription: {
+    fontSize: 16,
+    color: '#374151',
+    lineHeight: 24,
+    marginBottom: 16,
+  },
+  reminderSteps: {
+    gap: 8,
+  },
+  reminderStep: {
+    fontSize: 16,
+    color: '#374151',
+    lineHeight: 24,
+  },
+  bold: {
+    fontWeight: 'bold',
+  },
+  congratulations: {
+    alignItems: 'center',
+    marginBottom: 32,
+  },
+  congratulationsText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#3B82F6',
+    textAlign: 'center',
+  },
+  buttonContainer: {
+    gap: 16,
+  },
+  restartButton: {
+    backgroundColor: '#3B82F6',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+    alignItems: 'center',
+  },
+  restartButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#FFF',
+  },
+  reportButton: {
+    backgroundColor: '#FFF',
+    paddingVertical: 16,
+    paddingHorizontal: 32,
+    borderRadius: 12,
+    alignItems: 'center',
+    borderWidth: 1,
+    borderColor: '#D1D5DB',
+  },
+  reportButtonText: {
+    fontSize: 18,
+    fontWeight: '600',
+    color: '#374151',
+  },
+});
 
 export default SecurityTips;

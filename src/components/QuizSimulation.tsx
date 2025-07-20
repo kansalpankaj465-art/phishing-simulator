@@ -1,9 +1,13 @@
-import { useState } from 'react';
-import { Shield, Users, BarChart3, Target } from 'lucide-react';
-import { Button } from '@/components/ui/button';
-import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
-import { Badge } from '@/components/ui/badge';
-import { Progress } from '@/components/ui/progress';
+import React, { useState } from 'react';
+import {
+  View,
+  Text,
+  TouchableOpacity,
+  StyleSheet,
+  SafeAreaView,
+  ScrollView,
+} from 'react-native';
+import { Ionicons } from '@expo/vector-icons';
 
 interface QuizSimulationProps {
   onComplete: (score: number) => void;
@@ -89,9 +93,9 @@ const QuizSimulation = ({ onComplete }: QuizSimulationProps) => {
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 4) return 'text-green-600';
-    if (score >= 3) return 'text-yellow-600';
-    return 'text-red-600';
+    if (score >= 4) return '#10B981';
+    if (score >= 3) return '#F59E0B';
+    return '#DC2626';
   };
 
   const getScoreMessage = (score: number) => {
@@ -107,80 +111,252 @@ const QuizSimulation = ({ onComplete }: QuizSimulationProps) => {
     }, 0);
 
     return (
-      <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 p-4">
-        <div className="max-w-2xl mx-auto">
-          <Card className="text-center p-8">
-            <div className="mx-auto w-16 h-16 bg-primary rounded-full flex items-center justify-center mb-6">
-              <Target className="h-8 w-8 text-white" />
-            </div>
+      <SafeAreaView style={styles.container}>
+        <View style={styles.resultContainer}>
+          <View style={styles.resultCard}>
+            <View style={styles.resultIcon}>
+              <Ionicons name="trophy" size={32} color="#FFF" />
+            </View>
             
-            <h2 className="text-3xl font-bold mb-4">Quiz Complete!</h2>
+            <Text style={styles.resultTitle}>Quiz Complete!</Text>
             
-            <div className="mb-6">
-              <div className={`text-6xl font-bold mb-2 ${getScoreColor(score)}`}>
+            <View style={styles.scoreContainer}>
+              <Text style={[styles.scoreText, { color: getScoreColor(score) }]}>
                 {score}/5
-              </div>
-              <p className="text-xl text-muted-foreground">
+              </Text>
+              <Text style={styles.scoreMessage}>
                 {getScoreMessage(score)}
-              </p>
-            </div>
+              </Text>
+            </View>
 
-            <Progress value={(score / 5) * 100} className="mb-6" />
+            <View style={styles.progressContainer}>
+              <View style={styles.progressBar}>
+                <View 
+                  style={[
+                    styles.progressFill, 
+                    { 
+                      width: `${(score / 5) * 100}%`,
+                      backgroundColor: getScoreColor(score)
+                    }
+                  ]} 
+                />
+              </View>
+            </View>
 
-            <div className="text-sm text-muted-foreground">
+            <Text style={styles.redirectText}>
               Redirecting to security tips in a moment...
-            </div>
-          </Card>
-        </div>
-      </div>
+            </Text>
+          </View>
+        </View>
+      </SafeAreaView>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-primary/5 to-secondary/5 p-4">
-      <div className="max-w-3xl mx-auto">
-        <div className="mb-6">
-          <div className="flex items-center justify-between mb-4">
-            <Badge variant="secondary">Security Awareness Quiz</Badge>
-            <div className="text-sm text-muted-foreground">
+    <SafeAreaView style={styles.container}>
+      <ScrollView contentContainerStyle={styles.scrollContent}>
+        <View style={styles.header}>
+          <View style={styles.headerInfo}>
+            <View style={styles.badge}>
+              <Text style={styles.badgeText}>Security Awareness Quiz</Text>
+            </View>
+            <Text style={styles.questionCounter}>
               Question {currentQuestion + 1} of {questions.length}
-            </div>
-          </div>
-          <Progress value={((currentQuestion + 1) / questions.length) * 100} />
-        </div>
+            </Text>
+          </View>
+          <View style={styles.progressContainer}>
+            <View style={styles.progressBar}>
+              <View 
+                style={[
+                  styles.progressFill, 
+                  { width: `${((currentQuestion + 1) / questions.length) * 100}%` }
+                ]} 
+              />
+            </View>
+          </View>
+        </View>
 
-        <Card className="p-8">
-          <CardHeader className="pb-6">
-            <CardTitle className="text-xl leading-relaxed">
-              {questions[currentQuestion].question}
-            </CardTitle>
-          </CardHeader>
+        <View style={styles.questionCard}>
+          <Text style={styles.questionText}>
+            {questions[currentQuestion].question}
+          </Text>
           
-          <CardContent>
-            <div className="space-y-3">
-              {questions[currentQuestion].options.map((option, index) => (
-                <Button
-                  key={index}
-                  variant="outline"
-                  className="w-full text-left justify-start h-auto p-4 text-wrap"
-                  onClick={() => handleAnswer(index)}
-                >
-                  <span className="mr-3 font-semibold">{String.fromCharCode(65 + index)}.</span>
-                  {option}
-                </Button>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+          <View style={styles.optionsContainer}>
+            {questions[currentQuestion].options.map((option, index) => (
+              <TouchableOpacity
+                key={index}
+                style={styles.optionButton}
+                onPress={() => handleAnswer(index)}
+              >
+                <Text style={styles.optionLetter}>
+                  {String.fromCharCode(65 + index)}.
+                </Text>
+                <Text style={styles.optionText}>{option}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        </View>
 
-        <div className="mt-6 text-center">
-          <p className="text-sm text-muted-foreground">
+        <View style={styles.footer}>
+          <Text style={styles.footerText}>
             Take your time and choose the safest option
-          </p>
-        </div>
-      </div>
-    </div>
+          </Text>
+        </View>
+      </ScrollView>
+    </SafeAreaView>
   );
 };
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    backgroundColor: '#F8FAFC',
+  },
+  scrollContent: {
+    padding: 16,
+  },
+  header: {
+    marginBottom: 24,
+  },
+  headerInfo: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    marginBottom: 16,
+  },
+  badge: {
+    backgroundColor: '#E5E7EB',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 12,
+  },
+  badgeText: {
+    fontSize: 14,
+    color: '#374151',
+    fontWeight: '600',
+  },
+  questionCounter: {
+    fontSize: 14,
+    color: '#6B7280',
+  },
+  progressContainer: {
+    marginBottom: 16,
+  },
+  progressBar: {
+    height: 8,
+    backgroundColor: '#E5E7EB',
+    borderRadius: 4,
+    overflow: 'hidden',
+  },
+  progressFill: {
+    height: '100%',
+    backgroundColor: '#3B82F6',
+    borderRadius: 4,
+  },
+  questionCard: {
+    backgroundColor: '#FFF',
+    borderRadius: 12,
+    padding: 32,
+    marginBottom: 24,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 2 },
+    shadowOpacity: 0.1,
+    shadowRadius: 4,
+    elevation: 4,
+  },
+  questionText: {
+    fontSize: 20,
+    fontWeight: '600',
+    color: '#1F2937',
+    lineHeight: 28,
+    marginBottom: 24,
+  },
+  optionsContainer: {
+    gap: 12,
+  },
+  optionButton: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    padding: 16,
+    backgroundColor: '#F9FAFB',
+    borderRadius: 8,
+    borderWidth: 1,
+    borderColor: '#E5E7EB',
+  },
+  optionLetter: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#374151',
+    marginRight: 12,
+    minWidth: 20,
+  },
+  optionText: {
+    fontSize: 16,
+    color: '#374151',
+    flex: 1,
+    lineHeight: 22,
+  },
+  footer: {
+    alignItems: 'center',
+  },
+  footerText: {
+    fontSize: 14,
+    color: '#6B7280',
+    textAlign: 'center',
+  },
+  resultContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: 16,
+  },
+  resultCard: {
+    backgroundColor: '#FFF',
+    borderRadius: 16,
+    padding: 32,
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.1,
+    shadowRadius: 8,
+    elevation: 8,
+    width: '100%',
+    maxWidth: 400,
+  },
+  resultIcon: {
+    backgroundColor: '#3B82F6',
+    width: 64,
+    height: 64,
+    borderRadius: 32,
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  resultTitle: {
+    fontSize: 28,
+    fontWeight: 'bold',
+    color: '#1F2937',
+    marginBottom: 24,
+  },
+  scoreContainer: {
+    alignItems: 'center',
+    marginBottom: 24,
+  },
+  scoreText: {
+    fontSize: 64,
+    fontWeight: 'bold',
+    marginBottom: 8,
+  },
+  scoreMessage: {
+    fontSize: 18,
+    color: '#6B7280',
+    textAlign: 'center',
+  },
+  redirectText: {
+    fontSize: 14,
+    color: '#6B7280',
+    textAlign: 'center',
+  },
+});
 
 export default QuizSimulation;
