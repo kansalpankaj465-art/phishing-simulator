@@ -6,8 +6,9 @@ import {
   StyleSheet,
   SafeAreaView,
   Dimensions,
+  StatusBar,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Wifi, Battery, Clock, Smartphone, AlertTriangle, Eye } from 'lucide-react-native';
 
 interface SMSSimulationProps {
   onNext: () => void;
@@ -20,15 +21,16 @@ const SMSSimulation = ({ onNext }: SMSSimulationProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#1E293B" />
       <View style={styles.phoneFrame}>
         <View style={styles.phone}>
           {/* Status Bar */}
           <View style={styles.statusBar}>
             <Text style={styles.time}>9:41</Text>
             <View style={styles.statusIcons}>
-              <Ionicons name="wifi" size={12} color="#000" />
+              <Wifi size={12} color="#000" strokeWidth={2} />
               <Text style={styles.signal}>●●●</Text>
-              <Ionicons name="battery-full" size={12} color="#000" />
+              <Battery size={12} color="#000" strokeWidth={2} />
               <Text style={styles.battery}>100%</Text>
             </View>
           </View>
@@ -42,7 +44,7 @@ const SMSSimulation = ({ onNext }: SMSSimulationProps) => {
           <View style={styles.messageThread}>
             <View style={styles.messageContainer}>
               <View style={styles.avatarContainer}>
-                <Ionicons name="phone-portrait" size={16} color="#666" />
+                <Smartphone size={16} color="#666" strokeWidth={2} />
               </View>
               <View style={styles.messageContent}>
                 <View style={styles.messageHeader}>
@@ -59,7 +61,7 @@ const SMSSimulation = ({ onNext }: SMSSimulationProps) => {
                   </Text>
                 </View>
                 <View style={styles.messageTime}>
-                  <Ionicons name="time" size={12} color="#999" />
+                  <Clock size={12} color="#999" strokeWidth={2} />
                   <Text style={styles.timeText}>2 minutes ago</Text>
                 </View>
               </View>
@@ -68,8 +70,11 @@ const SMSSimulation = ({ onNext }: SMSSimulationProps) => {
 
           {/* Educational Overlay */}
           <View style={styles.educationalOverlay}>
-            <View style={styles.simulationBadge}>
-              <Text style={styles.simulationBadgeText}>⚠️ SIMULATION</Text>
+            <View style={styles.overlayHeader}>
+              <View style={styles.simulationBadge}>
+                <AlertTriangle size={16} color="#FFFFFF" strokeWidth={2} />
+                <Text style={styles.simulationBadgeText}>SIMULATION</Text>
+              </View>
             </View>
             <Text style={styles.overlayDescription}>
               This is a fake SMS designed to demonstrate phishing tactics.
@@ -80,17 +85,35 @@ const SMSSimulation = ({ onNext }: SMSSimulationProps) => {
                 style={styles.detailsButton}
                 onPress={() => setShowDetails(true)}
               >
+                <Eye size={16} color="#374151" strokeWidth={2} />
                 <Text style={styles.detailsButtonText}>What makes this suspicious?</Text>
               </TouchableOpacity>
             )}
 
             {showDetails && (
               <View style={styles.detailsCard}>
-                <Text style={styles.detailsTitle}>🚩 Red flags:</Text>
-                <Text style={styles.detailsItem}>• Suspicious URL (not official PSB domain)</Text>
-                <Text style={styles.detailsItem}>• Creates urgency and panic</Text>
-                <Text style={styles.detailsItem}>• Asks to "verify details" via link</Text>
-                <Text style={styles.detailsItem}>• Generic greeting "Dear Customer"</Text>
+                <View style={styles.detailsHeader}>
+                  <AlertTriangle size={20} color="#DC2626" strokeWidth={2} />
+                  <Text style={styles.detailsTitle}>Red Flags Detected</Text>
+                </View>
+                <View style={styles.flagsList}>
+                  <View style={styles.flagItem}>
+                    <View style={styles.flagDot} />
+                    <Text style={styles.flagText}>Suspicious URL (not official PSB domain)</Text>
+                  </View>
+                  <View style={styles.flagItem}>
+                    <View style={styles.flagDot} />
+                    <Text style={styles.flagText}>Creates urgency and panic</Text>
+                  </View>
+                  <View style={styles.flagItem}>
+                    <View style={styles.flagDot} />
+                    <Text style={styles.flagText}>Asks to "verify details" via link</Text>
+                  </View>
+                  <View style={styles.flagItem}>
+                    <View style={styles.flagDot} />
+                    <Text style={styles.flagText}>Generic greeting "Dear Customer"</Text>
+                  </View>
+                </View>
               </View>
             )}
 
@@ -107,26 +130,26 @@ const SMSSimulation = ({ onNext }: SMSSimulationProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#1E293B',
+    backgroundColor: '#0F172A',
     justifyContent: 'center',
     alignItems: 'center',
-    padding: 16,
+    padding: 20,
   },
   phoneFrame: {
-    backgroundColor: '#000',
-    borderRadius: 32,
-    padding: 8,
+    backgroundColor: '#1E293B',
+    borderRadius: 40,
+    padding: 12,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 10 },
-    shadowOpacity: 0.3,
-    shadowRadius: 20,
-    elevation: 20,
+    shadowOffset: { width: 0, height: 16 },
+    shadowOpacity: 0.4,
+    shadowRadius: 32,
+    elevation: 24,
   },
   phone: {
     backgroundColor: '#FFF',
-    borderRadius: 24,
+    borderRadius: 32,
     width: width * 0.8,
-    height: 600,
+    height: 640,
     overflow: 'hidden',
     position: 'relative',
   },
@@ -225,68 +248,107 @@ const styles = StyleSheet.create({
     bottom: 0,
     left: 0,
     right: 0,
-    backgroundColor: 'rgba(255, 255, 255, 0.95)',
-    padding: 16,
+    backgroundColor: 'rgba(255, 255, 255, 0.98)',
+    padding: 20,
     borderTopWidth: 1,
-    borderTopColor: '#E5E7EB',
+    borderTopColor: '#F1F5F9',
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+  },
+  overlayHeader: {
+    alignItems: 'center',
+    marginBottom: 16,
   },
   simulationBadge: {
-    backgroundColor: '#DC2626',
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 12,
-    alignSelf: 'flex-start',
-    marginBottom: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    backgroundColor: '#EF4444',
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
+    gap: 8,
   },
   simulationBadgeText: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#FFF',
     fontWeight: '600',
   },
   overlayDescription: {
-    fontSize: 12,
-    color: '#666',
-    marginBottom: 12,
+    fontSize: 14,
+    color: '#64748B',
+    marginBottom: 16,
+    textAlign: 'center',
+    lineHeight: 20,
   },
   detailsButton: {
-    backgroundColor: '#F3F4F6',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F8FAFC',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#D1D5DB',
+    borderColor: '#E2E8F0',
+    gap: 8,
   },
   detailsButtonText: {
     fontSize: 14,
     color: '#374151',
-    textAlign: 'center',
+    fontWeight: '500',
   },
   detailsCard: {
-    backgroundColor: '#FEF3C7',
-    padding: 12,
-    borderRadius: 8,
-    marginBottom: 12,
+    backgroundColor: '#FEF2F2',
+    padding: 16,
+    borderRadius: 12,
+    marginBottom: 16,
     borderWidth: 1,
-    borderColor: '#FDE68A',
+    borderColor: '#FECACA',
+  },
+  detailsHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 16,
   },
   detailsTitle: {
-    fontSize: 12,
+    fontSize: 16,
     fontWeight: '600',
-    color: '#92400E',
-    marginBottom: 8,
+    color: '#DC2626',
   },
-  detailsItem: {
-    fontSize: 11,
-    color: '#78350F',
-    marginBottom: 4,
+  flagsList: {
+    gap: 12,
+  },
+  flagItem: {
+    flexDirection: 'row',
+    alignItems: 'flex-start',
+    gap: 12,
+  },
+  flagDot: {
+    width: 6,
+    height: 6,
+    borderRadius: 3,
+    backgroundColor: '#DC2626',
+    marginTop: 6,
+  },
+  flagText: {
+    fontSize: 13,
+    color: '#7F1D1D',
+    lineHeight: 18,
+    flex: 1,
   },
   nextButton: {
-    backgroundColor: '#DC2626',
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: '#EF4444',
+    padding: 16,
+    borderRadius: 12,
+    shadowColor: '#EF4444',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
   nextButtonText: {
-    fontSize: 14,
+    fontSize: 16,
     color: '#FFF',
     fontWeight: '600',
     textAlign: 'center',

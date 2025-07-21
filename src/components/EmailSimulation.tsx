@@ -6,8 +6,9 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
+  StatusBar,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Mail, Calendar, Clock, AlertTriangle, Eye, ArrowRight } from 'lucide-react-native';
 
 interface EmailSimulationProps {
   onNext: () => void;
@@ -18,13 +19,14 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0F172A" />
       <ScrollView style={styles.scrollView}>
         {/* Email Client Interface */}
         <View style={styles.emailClient}>
           {/* Email Header */}
           <View style={styles.emailHeader}>
             <View style={styles.headerLeft}>
-              <Ionicons name="mail" size={24} color="#1D4ED8" />
+              <Mail size={24} color="#3B82F6" strokeWidth={2} />
               <Text style={styles.headerTitle}>Gmail</Text>
             </View>
             <Text style={styles.headerRight}>Inbox (1)</Text>
@@ -44,11 +46,11 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
                 <Text style={styles.senderEmail}>noreply@punjabandsindbank.in</Text>
                 <View style={styles.emailMeta}>
                   <View style={styles.metaItem}>
-                    <Ionicons name="calendar" size={12} color="#666" />
+                    <Calendar size={12} color="#666" strokeWidth={2} />
                     <Text style={styles.metaText}>Today</Text>
                   </View>
                   <View style={styles.metaItem}>
-                    <Ionicons name="time" size={12} color="#666" />
+                    <Clock size={12} color="#666" strokeWidth={2} />
                     <Text style={styles.metaText}>3:42 PM</Text>
                   </View>
                 </View>
@@ -84,9 +86,9 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
         {/* Educational Analysis */}
         <View style={styles.analysisCard}>
           <View style={styles.analysisHeader}>
-            <View style={styles.analysisTitle}>
-              <Ionicons name="warning" size={20} color="#F59E0B" />
-              <Text style={styles.analysisTitleText}>🎓 Educational Analysis</Text>
+            <View style={styles.analysisTitleContainer}>
+              <AlertTriangle size={20} color="#F59E0B" strokeWidth={2} />
+              <Text style={styles.analysisTitleText}>Educational Analysis</Text>
             </View>
             <View style={styles.simulationBadge}>
               <Text style={styles.simulationBadgeText}>SIMULATION</Text>
@@ -98,6 +100,7 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
               style={styles.analyzeButton}
               onPress={() => setShowAnalysis(true)}
             >
+              <Eye size={16} color="#374151" strokeWidth={2} />
               <Text style={styles.analyzeButtonText}>Analyze This Phishing Email</Text>
             </TouchableOpacity>
           ) : (
@@ -119,6 +122,7 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
               </View>
 
               <TouchableOpacity style={styles.continueButton} onPress={onNext}>
+                <ArrowRight size={16} color="#FFF" strokeWidth={2} />
                 <Text style={styles.continueButtonText}>Continue to Bank Page Simulation →</Text>
               </TouchableOpacity>
             </View>
@@ -132,222 +136,238 @@ const EmailSimulation = ({ onNext }: EmailSimulationProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F1F5F9',
+    backgroundColor: '#0F172A',
   },
   scrollView: {
     flex: 1,
   },
   emailClient: {
     backgroundColor: '#FFF',
-    margin: 16,
-    borderRadius: 12,
+    margin: 20,
+    borderRadius: 16,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 12,
     overflow: 'hidden',
   },
   emailHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    backgroundColor: '#F8F9FA',
-    padding: 16,
+    backgroundColor: '#F8FAFC',
+    padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: '#E2E8F0',
   },
   headerLeft: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 12,
+    gap: 10,
   },
   headerTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: '600',
     color: '#1F2937',
   },
   headerRight: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#6B7280',
   },
   emailContent: {
-    padding: 24,
+    padding: 28,
   },
   emailCard: {
     borderWidth: 1,
-    borderColor: '#E5E7EB',
-    borderRadius: 8,
+    borderColor: '#E2E8F0',
+    borderRadius: 12,
     overflow: 'hidden',
   },
   emailInfo: {
-    backgroundColor: '#F8F9FA',
-    padding: 16,
+    backgroundColor: '#F8FAFC',
+    padding: 20,
     borderBottomWidth: 1,
-    borderBottomColor: '#E5E7EB',
+    borderBottomColor: '#E2E8F0',
   },
   emailSubject: {
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between',
-    marginBottom: 4,
+    marginBottom: 8,
   },
   subjectText: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
     color: '#1F2937',
     flex: 1,
   },
   suspiciousBadge: {
-    backgroundColor: '#DC2626',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 4,
+    backgroundColor: '#EF4444',
+    paddingHorizontal: 10,
+    paddingVertical: 4,
+    borderRadius: 8,
   },
   suspiciousBadgeText: {
-    fontSize: 10,
+    fontSize: 11,
     color: '#FFF',
     fontWeight: '600',
   },
   senderEmail: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#6B7280',
-    marginBottom: 8,
+    marginBottom: 12,
   },
   emailMeta: {
     flexDirection: 'row',
-    gap: 16,
+    gap: 20,
   },
   metaItem: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 4,
+    gap: 6,
   },
   metaText: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#6B7280',
   },
   emailBody: {
-    padding: 24,
+    padding: 28,
   },
   emailTitle: {
-    fontSize: 18,
+    fontSize: 20,
     fontWeight: 'bold',
-    color: '#DC2626',
-    marginBottom: 16,
+    color: '#EF4444',
+    marginBottom: 20,
   },
   emailText: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#374151',
-    lineHeight: 20,
-    marginBottom: 12,
-  },
-  warningText: {
-    fontSize: 14,
-    color: '#DC2626',
-    fontWeight: '600',
+    lineHeight: 24,
     marginBottom: 16,
   },
+  warningText: {
+    fontSize: 15,
+    color: '#EF4444',
+    fontWeight: '600',
+    marginBottom: 20,
+  },
   verifyButton: {
-    backgroundColor: '#DC2626',
-    paddingVertical: 12,
-    paddingHorizontal: 32,
-    borderRadius: 8,
+    backgroundColor: '#EF4444',
+    paddingVertical: 16,
+    paddingHorizontal: 40,
+    borderRadius: 12,
     alignSelf: 'center',
-    marginBottom: 24,
+    marginBottom: 28,
+    shadowColor: '#EF4444',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
   verifyButtonText: {
-    fontSize: 16,
+    fontSize: 17,
     color: '#FFF',
     fontWeight: '600',
   },
   signature: {
-    gap: 4,
+    gap: 6,
   },
   signatureText: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#6B7280',
   },
   analysisCard: {
-    backgroundColor: '#FFFBEB',
-    margin: 16,
-    padding: 24,
-    borderRadius: 12,
+    backgroundColor: '#1E293B',
+    margin: 20,
+    padding: 28,
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#FDE68A',
+    borderColor: '#334155',
   },
   analysisHeader: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
-    marginBottom: 16,
+    marginBottom: 20,
   },
-  analysisTitle: {
+  analysisTitleContainer: {
     flexDirection: 'row',
     alignItems: 'center',
-    gap: 8,
+    gap: 10,
   },
   analysisTitleText: {
-    fontSize: 16,
+    fontSize: 18,
     fontWeight: '600',
-    color: '#92400E',
+    color: '#FFFFFF',
   },
   simulationBadge: {
-    backgroundColor: '#E5E7EB',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
-    borderRadius: 4,
+    backgroundColor: '#334155',
+    paddingHorizontal: 12,
+    paddingVertical: 6,
+    borderRadius: 8,
   },
   simulationBadgeText: {
-    fontSize: 12,
-    color: '#374151',
+    fontSize: 13,
+    color: '#94A3B8',
     fontWeight: '600',
   },
   analyzeButton: {
-    backgroundColor: '#FFF',
-    padding: 16,
-    borderRadius: 8,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#F8FAFC',
+    padding: 18,
+    borderRadius: 12,
     borderWidth: 1,
-    borderColor: '#D1D5DB',
-  },
-  analyzeButtonText: {
-    fontSize: 16,
-    color: '#374151',
-    fontWeight: '600',
-    textAlign: 'center',
-  },
-  analysisContent: {
-    gap: 16,
-  },
-  analysisSection: {
+    borderColor: '#E2E8F0',
     gap: 8,
   },
-  sectionTitle: {
-    fontSize: 14,
+  analyzeButtonText: {
+    fontSize: 17,
+    color: '#374151',
     fontWeight: '600',
-    color: '#92400E',
+  },
+  analysisContent: {
+    gap: 20,
+  },
+  analysisSection: {
+    gap: 12,
+  },
+  sectionTitle: {
+    fontSize: 16,
+    fontWeight: '600',
+    color: '#FFFFFF',
   },
   flagItem: {
-    fontSize: 13,
-    color: '#78350F',
-    lineHeight: 18,
+    fontSize: 14,
+    color: '#94A3B8',
+    lineHeight: 22,
   },
   verifyItem: {
-    fontSize: 13,
-    color: '#78350F',
-    lineHeight: 18,
+    fontSize: 14,
+    color: '#94A3B8',
+    lineHeight: 22,
   },
   continueButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
     backgroundColor: '#3B82F6',
-    padding: 16,
-    borderRadius: 8,
-    marginTop: 8,
+    padding: 18,
+    borderRadius: 12,
+    marginTop: 12,
+    gap: 8,
+    shadowColor: '#3B82F6',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
   continueButtonText: {
-    fontSize: 16,
+    fontSize: 17,
     color: '#FFF',
     fontWeight: '600',
-    textAlign: 'center',
   },
 });
 

@@ -7,9 +7,9 @@ import {
   StyleSheet,
   SafeAreaView,
   ScrollView,
-  Alert,
+  StatusBar,
 } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
+import { Shield, Lock, User, CreditCard, Phone, Eye, EyeOff, AlertTriangle } from 'lucide-react-native';
 
 interface PhishingPageProps {
   onSubmit: (data: { 
@@ -41,10 +41,12 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
 
   return (
     <SafeAreaView style={styles.container}>
+      <StatusBar barStyle="light-content" backgroundColor="#0F172A" />
       {/* Educational Warning Banner */}
       <View style={styles.warningBanner}>
-        <View style={styles.warningBadge}>
-          <Text style={styles.warningBadgeText}>🎓 EDUCATIONAL SIMULATION</Text>
+        <View style={styles.warningHeader}>
+          <AlertTriangle size={20} color="#FFFFFF" strokeWidth={2} />
+          <Text style={styles.warningBadgeText}>EDUCATIONAL SIMULATION</Text>
         </View>
         <Text style={styles.warningText}>This is a FAKE banking page for learning purposes only</Text>
       </View>
@@ -53,7 +55,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
       <View style={styles.bankHeader}>
         <View style={styles.bankHeaderContent}>
           <View style={styles.bankLogo}>
-            <Ionicons name="shield-checkmark" size={32} color="#10B981" />
+            <Shield size={32} color="#10B981" strokeWidth={2} />
           </View>
           <View style={styles.bankInfo}>
             <Text style={styles.bankName}>Punjab and Sind Bank</Text>
@@ -61,7 +63,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
           </View>
         </View>
         <View style={styles.secureIndicator}>
-          <Ionicons name="lock-closed" size={16} color="#FFF" />
+          <Lock size={16} color="#FFF" strokeWidth={2} />
           <Text style={styles.secureText}>secure.psb.bank.in</Text>
         </View>
       </View>
@@ -79,7 +81,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Account Number</Text>
               <View style={styles.inputContainer}>
-                <Ionicons name="person" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <User size={20} color="#9CA3AF" strokeWidth={2} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Enter Account Number"
@@ -92,7 +94,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Debit Card Number</Text>
               <View style={styles.inputContainer}>
-                <Ionicons name="card" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <CreditCard size={20} color="#9CA3AF" strokeWidth={2} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Enter 16-digit Card Number"
@@ -106,7 +108,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
               <View style={[styles.inputGroup, styles.inputHalf]}>
                 <Text style={styles.label}>CVV</Text>
                 <View style={styles.inputContainer}>
-                  <Ionicons name="lock-closed" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                  <Lock size={20} color="#9CA3AF" strokeWidth={2} style={styles.inputIcon} />
                   <TextInput
                     style={styles.input}
                     placeholder="CVV"
@@ -118,7 +120,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
               <View style={[styles.inputGroup, styles.inputHalf]}>
                 <Text style={styles.label}>OTP</Text>
                 <View style={styles.inputContainer}>
-                  <Ionicons name="lock-closed" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                  <Lock size={20} color="#9CA3AF" strokeWidth={2} style={styles.inputIcon} />
                   <TextInput
                     style={styles.input}
                     placeholder="Enter OTP"
@@ -132,7 +134,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Mobile Number</Text>
               <View style={styles.inputContainer}>
-                <Ionicons name="call" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <Phone size={20} color="#9CA3AF" strokeWidth={2} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Enter Mobile Number"
@@ -145,7 +147,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Net Banking Username</Text>
               <View style={styles.inputContainer}>
-                <Ionicons name="person" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <User size={20} color="#9CA3AF" strokeWidth={2} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Enter Username"
@@ -158,7 +160,7 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
             <View style={styles.inputGroup}>
               <Text style={styles.label}>Net Banking Password</Text>
               <View style={styles.inputContainer}>
-                <Ionicons name="lock-closed" size={20} color="#9CA3AF" style={styles.inputIcon} />
+                <Lock size={20} color="#9CA3AF" strokeWidth={2} style={styles.inputIcon} />
                 <TextInput
                   style={styles.input}
                   placeholder="Enter Password"
@@ -170,11 +172,11 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
                   style={styles.eyeButton}
                   onPress={() => setShowPassword(!showPassword)}
                 >
-                  <Ionicons 
-                    name={showPassword ? "eye-off" : "eye"} 
-                    size={20} 
-                    color="#9CA3AF" 
-                  />
+                  {showPassword ? (
+                    <EyeOff size={20} color="#9CA3AF" strokeWidth={2} />
+                  ) : (
+                    <Eye size={20} color="#9CA3AF" strokeWidth={2} />
+                  )}
                 </TouchableOpacity>
               </View>
             </View>
@@ -194,7 +196,8 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
 
       {/* Educational Notice */}
       <View style={styles.educationalNotice}>
-        <View style={styles.noticeBadge}>
+        <View style={styles.noticeHeader}>
+          <AlertTriangle size={20} color="#F59E0B" strokeWidth={2} />
           <Text style={styles.noticeBadgeText}>Educational Notice</Text>
         </View>
         <Text style={styles.noticeText}>
@@ -208,121 +211,120 @@ const PhishingPage = ({ onSubmit }: PhishingPageProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#F0FDF4',
+    backgroundColor: '#0F172A',
   },
   warningBanner: {
-    backgroundColor: '#DC2626',
-    paddingVertical: 8,
-    paddingHorizontal: 16,
+    backgroundColor: '#EF4444',
+    paddingVertical: 12,
+    paddingHorizontal: 20,
     alignItems: 'center',
   },
-  warningBadge: {
-    backgroundColor: '#E5E7EB',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 4,
-    marginBottom: 4,
+  warningHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 6,
   },
   warningBadgeText: {
-    fontSize: 12,
-    color: '#374151',
+    fontSize: 14,
+    color: '#FFFFFF',
     fontWeight: '600',
   },
   warningText: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#FFF',
     textAlign: 'center',
   },
   bankHeader: {
     backgroundColor: '#10B981',
-    paddingVertical: 16,
-    paddingHorizontal: 16,
+    paddingVertical: 20,
+    paddingHorizontal: 20,
   },
   bankHeaderContent: {
     flexDirection: 'row',
     alignItems: 'center',
-    marginBottom: 8,
+    marginBottom: 12,
   },
   bankLogo: {
     backgroundColor: '#FFF',
-    padding: 8,
-    borderRadius: 8,
-    marginRight: 12,
+    padding: 10,
+    borderRadius: 12,
+    marginRight: 16,
   },
   bankInfo: {
     flex: 1,
   },
   bankName: {
-    fontSize: 20,
+    fontSize: 22,
     fontWeight: 'bold',
     color: '#FFF',
   },
   bankSubtitle: {
-    fontSize: 14,
+    fontSize: 15,
     color: 'rgba(255, 255, 255, 0.9)',
   },
   secureIndicator: {
     flexDirection: 'row',
     alignItems: 'center',
     backgroundColor: 'rgba(255, 255, 255, 0.1)',
-    paddingHorizontal: 12,
-    paddingVertical: 4,
-    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 8,
+    borderRadius: 20,
     alignSelf: 'flex-start',
-    gap: 4,
+    gap: 8,
   },
   secureText: {
-    fontSize: 12,
+    fontSize: 13,
     color: '#FFF',
   },
   scrollView: {
     flex: 1,
   },
   scrollContent: {
-    padding: 16,
+    padding: 20,
   },
   formContainer: {
     backgroundColor: '#FFF',
-    borderRadius: 16,
-    padding: 24,
+    borderRadius: 20,
+    padding: 28,
     shadowColor: '#000',
-    shadowOffset: { width: 0, height: 4 },
-    shadowOpacity: 0.1,
-    shadowRadius: 8,
-    elevation: 8,
+    shadowOffset: { width: 0, height: 8 },
+    shadowOpacity: 0.15,
+    shadowRadius: 16,
+    elevation: 12,
   },
   formHeader: {
     alignItems: 'center',
-    marginBottom: 32,
+    marginBottom: 36,
   },
   formTitle: {
-    fontSize: 24,
+    fontSize: 26,
     fontWeight: 'bold',
     color: '#1F2937',
-    marginBottom: 8,
+    marginBottom: 12,
     textAlign: 'center',
   },
   formSubtitle: {
-    fontSize: 16,
+    fontSize: 17,
     color: '#6B7280',
     textAlign: 'center',
-    lineHeight: 22,
+    lineHeight: 26,
   },
   form: {
-    gap: 16,
+    gap: 20,
   },
   inputGroup: {
-    gap: 8,
+    gap: 10,
   },
   inputRow: {
     flexDirection: 'row',
-    gap: 16,
+    gap: 20,
   },
   inputHalf: {
     flex: 1,
   },
   label: {
-    fontSize: 16,
+    fontSize: 17,
     fontWeight: '600',
     color: '#374151',
   },
@@ -330,41 +332,46 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     borderWidth: 2,
-    borderColor: '#E5E7EB',
-    borderRadius: 8,
-    paddingHorizontal: 12,
+    borderColor: '#E2E8F0',
+    borderRadius: 12,
+    paddingHorizontal: 16,
     backgroundColor: '#FFF',
-    height: 48,
+    height: 52,
   },
   inputIcon: {
-    marginRight: 8,
+    marginRight: 12,
   },
   input: {
     flex: 1,
-    fontSize: 16,
+    fontSize: 17,
     color: '#1F2937',
   },
   eyeButton: {
-    padding: 4,
+    padding: 6,
   },
   submitButton: {
     backgroundColor: '#10B981',
-    paddingVertical: 16,
-    borderRadius: 8,
-    marginTop: 8,
+    paddingVertical: 18,
+    borderRadius: 12,
+    marginTop: 12,
+    shadowColor: '#10B981',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 8,
+    elevation: 4,
   },
   submitButtonText: {
-    fontSize: 18,
+    fontSize: 19,
     fontWeight: '600',
     color: '#FFF',
     textAlign: 'center',
   },
   customerCare: {
-    marginTop: 24,
+    marginTop: 28,
     alignItems: 'center',
   },
   customerCareText: {
-    fontSize: 14,
+    fontSize: 15,
     color: '#6B7280',
   },
   customerCareNumber: {
@@ -372,31 +379,30 @@ const styles = StyleSheet.create({
     color: '#10B981',
   },
   educationalNotice: {
-    backgroundColor: '#FFFBEB',
-    margin: 16,
-    padding: 12,
-    borderRadius: 8,
+    backgroundColor: '#1E293B',
+    margin: 20,
+    padding: 20,
+    borderRadius: 16,
     borderWidth: 1,
-    borderColor: '#FDE68A',
+    borderColor: '#334155',
     alignItems: 'center',
   },
-  noticeBadge: {
-    backgroundColor: '#F3F4F6',
-    paddingHorizontal: 8,
-    paddingVertical: 2,
-    borderRadius: 4,
-    marginBottom: 4,
+  noticeHeader: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    gap: 8,
+    marginBottom: 12,
   },
   noticeBadgeText: {
-    fontSize: 10,
-    color: '#374151',
+    fontSize: 16,
+    color: '#FFFFFF',
     fontWeight: '600',
   },
   noticeText: {
-    fontSize: 12,
-    color: '#92400E',
+    fontSize: 14,
+    color: '#94A3B8',
     textAlign: 'center',
-    lineHeight: 16,
+    lineHeight: 22,
   },
 });
 
