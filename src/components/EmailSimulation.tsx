@@ -8,7 +8,7 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-import { Mail, Calendar, Clock, AlertTriangle, Eye, ArrowRight } from 'lucide-react-native';
+import { Mail, Calendar, Clock, TriangleAlert as AlertTriangle, Eye, ArrowRight } from 'lucide-react-native';
 
 interface EmailSimulationProps {
   onNext: () => void;

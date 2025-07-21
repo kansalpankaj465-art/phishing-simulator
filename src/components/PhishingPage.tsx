@@ -9,7 +9,7 @@ import {
   ScrollView,
   StatusBar,
 } from 'react-native';
-import { Shield, Lock, User, CreditCard, Phone, Eye, EyeOff, AlertTriangle } from 'lucide-react-native';
+import { Shield, Lock, User, CreditCard, Phone, Eye, EyeOff, TriangleAlert as AlertTriangle } from 'lucide-react-native';
 
 interface PhishingPageProps {
   onSubmit: (data: { 

@@ -9,7 +9,7 @@ import {
   SafeAreaView,
   StatusBar,
 } from 'react-native';
-import { Shield, MessageSquare, Mail, Brain, ChevronRight, Star, CheckCircle, AlertTriangle } from 'lucide-react-native';
+import { Shield, MessageSquare, Mail, Brain, ChevronRight, Star, CircleCheck as CheckCircle, TriangleAlert as AlertTriangle } from 'lucide-react-native';
 import SMSSimulation from '../src/components/SMSSimulation';
 import EmailSimulation from '../src/components/EmailSimulation';
 import PhishingPage from '../src/components/PhishingPage';

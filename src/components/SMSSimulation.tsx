@@ -8,7 +8,7 @@ import {
   Dimensions,
   StatusBar,
 } from 'react-native';
-import { Wifi, Battery, Clock, Smartphone, AlertTriangle, Eye } from 'lucide-react-native';
+import { Wifi, Battery, Clock, Smartphone, TriangleAlert as AlertTriangle, Eye } from 'lucide-react-native';
 
 interface SMSSimulationProps {
   onNext: () => void;
